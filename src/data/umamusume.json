@@ -1,0 +1,46 @@
+{
+    "trainees":[
+       {
+      "id": 1,
+      "name": "Special Week",
+      "title": "Nippon-ichi no Umamusume",
+      "rarity": 3,
+      "strategy": "Leader",
+      "baseStats": { "speed": 93, "stamina": 91, "power": 88, "guts": 99, "wisdom": 79 },
+      "image": "https://placehold.co/200x200?text=Special+Week",
+      "color": "#ff7eb9"
+    },
+    {
+        "id": 2,
+      "name": "Silence Suzuka",
+      "title": "Silent Blue",
+      "rarity": 3,
+      "strategy": "Runner",
+      "baseStats": { "speed": 105, "stamina": 70, "power": 82, "guts": 88, "wisdom": 105 },
+      "image": "https://placehold.co/200x200?text=Silence+Suzuka",
+      "color": "#4facfe"
+    },
+    {
+        "id": 3,
+      "name": "Tokai Teio",
+      "title": "Natural Prodigy",
+      "rarity": 3,
+      "strategy": "Leader",
+      "baseStats": { "speed": 97, "stamina": 82, "power": 93, "guts": 93, "wisdom": 85 },
+      "image": "https://placehold.co/200x200?text=Tokai+Teio",
+      "color": "#f8ce33"
+    },
+    {
+        "id": 4,
+      "name": "Gold Ship",
+      "title": "The Eccentric",
+      "rarity": 2,
+      "strategy": "Chaser",
+      "baseStats": { "speed": 85, "stamina": 100, "power": 90, "guts": 95, "wisdom": 80 },
+      "image": "https://placehold.co/200x200?text=Gold+Ship",
+      "color": "#9b9b9b"
+    
+    }
+
+    ]
+}
