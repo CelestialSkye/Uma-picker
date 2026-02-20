@@ -41,6 +41,54 @@
       "color": "#9b9b9b"
     
     }
+    ,
+    {
+        "id": 5,
+      "name": "Gold Ship11",
+      "title": "The Eccentric",
+      "rarity": 2,
+      "strategy": "Chaser",
+      "baseStats": { "speed": 85, "stamina": 100, "power": 90, "guts": 95, "wisdom": 80 },
+      "image": "https://placehold.co/200x200?text=Gold+Ship",
+      "color": "#9b9b9b"
+    
+    }
+    ,
+    {
+        "id": 6,
+      "name": "Gold Ship111",
+      "title": "The Eccentric",
+      "rarity": 2,
+      "strategy": "Chaser",
+      "baseStats": { "speed": 85, "stamina": 100, "power": 90, "guts": 95, "wisdom": 80 },
+      "image": "https://placehold.co/200x200?text=Gold+Ship",
+      "color": "#9b9b9b"
+    
+    }
+    ,
+    {
+        "id": 7,
+      "name": "Gold Ship11122",
+      "title": "The Eccentric",
+      "rarity": 2,
+      "strategy": "Chaser",
+      "baseStats": { "speed": 85, "stamina": 100, "power": 90, "guts": 95, "wisdom": 80 },
+      "image": "https://placehold.co/200x200?text=Gold+Ship",
+      "color": "#9b9b9b"
+    
+    }
+     ,
+    {
+        "id": 8,
+      "name": "Gold Ship11111",
+      "title": "The Eccentric",
+      "rarity": 2,
+      "strategy": "Chaser",
+      "baseStats": { "speed": 85, "stamina": 100, "power": 90, "guts": 95, "wisdom": 80 },
+      "image": "https://placehold.co/200x200?text=Gold+Ship",
+      "color": "#9b9b9b"
+    
+    }
 
     ]
 }

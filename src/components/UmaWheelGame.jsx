@@ -2,27 +2,35 @@ import { useEffect, useState, useCallback, Ref, useRef } from "react";
 import DataBase from "../data/umamusume.json";
 import Controls from "./Controls";
 import Wheel from "./Wheel";
+import TraineeFilter from "./TraineeFilter";
 
 const UmaWheelGame = () => {
   const [winner, setWinner] = useState(null);
   const [isSpinning, setIsSpinning] = useState(false);
   const [startTime, setStartTime] = useState(0);
   const [rotation, setRotation] = useState(0);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [selectedTrainees, setSelectedTrainees] = useState(
+    DataBase.trainees.map((t) => t.id),
+  );
 
   const spinSpeed = 2; // degrees per ms
 
-  const rotationRef = useRef(0);
+  const rotationRef = useRef(0); // ref for the random timeout
 
   const stopSpinning = useCallback(() => {
     setIsSpinning(false);
-    const currentRotation = rotationRef.current; // Use the ref!
+    const currentRotation = rotationRef.current;
 
-    const degreesPerSlice = 360 / DataBase.trainees.length;
+    const filteredTrainees = DataBase.trainees.filter((t) =>
+      selectedTrainees.includes(t.id),
+    );
+    const degreesPerSlice = 360 / filteredTrainees.length;
     const currentPosition = (360 - (currentRotation % 360)) % 360;
     const winnerIndex = Math.floor(currentPosition / degreesPerSlice);
 
-    setWinner(DataBase.trainees[winnerIndex]);
-  }, []); // Empty dependency array = stable function
+    setWinner(filteredTrainees[winnerIndex]);
+  }, [selectedTrainees]);
 
   useEffect(() => {
     if (isSpinning) {
@@ -86,12 +94,29 @@ const UmaWheelGame = () => {
       </h1>
 
       <Wheel
-        items={DataBase.trainees}
+        items={DataBase.trainees.filter((t) => selectedTrainees.includes(t.id))}
         rotation={rotation}
         isSpinning={isSpinning}
       />
 
-      <Controls onSpin={handlePickRandom} isSpinning={isSpinning} />
+      <button onClick={() => setIsFilterOpen(true)}>Trainees Filter</button>
+
+      <Controls
+        onSpin={handlePickRandom}
+        isSpinning={isSpinning}
+        traineeCount={selectedTrainees.length}
+      />
+
+      {isFilterOpen && (
+        <TraineeFilter
+          allTrainees={DataBase.trainees}
+          selectedTrainees={selectedTrainees}
+          onClose={() => setIsFilterOpen(false)}
+          onConfirm={(newSelection) => {
+            setSelectedTrainees(newSelection);
+          }}
+        />
+      )}
     </div>
   );
 };
