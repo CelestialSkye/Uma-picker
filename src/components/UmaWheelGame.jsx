@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, Ref, useRef } from "react";
 import DataBase from "../data/umamusume.json";
 import Controls from "./Controls";
 import Wheel from "./Wheel";
@@ -8,16 +8,21 @@ const UmaWheelGame = () => {
   const [isSpinning, setIsSpinning] = useState(false);
   const [startTime, setStartTime] = useState(0);
   const [rotation, setRotation] = useState(0);
+
   const spinSpeed = 2; // degrees per ms
+
+  const rotationRef = useRef(0);
 
   const stopSpinning = useCallback(() => {
     setIsSpinning(false);
+    const currentRotation = rotationRef.current; // Use the ref!
+
     const degreesPerSlice = 360 / DataBase.trainees.length;
-    const currentPosition = (360 - (rotation % 360)) % 360;
+    const currentPosition = (360 - (currentRotation % 360)) % 360;
     const winnerIndex = Math.floor(currentPosition / degreesPerSlice);
 
     setWinner(DataBase.trainees[winnerIndex]);
-  }, [rotation]);
+  }, []); // Empty dependency array = stable function
 
   useEffect(() => {
     if (isSpinning) {
@@ -25,12 +30,14 @@ const UmaWheelGame = () => {
         const elapsed = Date.now() - startTime;
         const newRotation = elapsed * spinSpeed;
         setRotation(newRotation);
+        rotationRef.current = newRotation;
       }, 50);
 
-      // AUTO-STOP after 10 seconds
+      // should stop the loop after a random short timer
+      const randomDuration = 4000 + Math.random() * 5000;
       const timer = setTimeout(() => {
         stopSpinning();
-      }, 10000);
+      }, randomDuration);
 
       return () => {
         clearInterval(interval);
