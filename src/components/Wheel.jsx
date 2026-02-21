@@ -34,8 +34,8 @@ const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
 
   return (
     <div
-      className="relative w-full max-w-155 aspect-square mx-auto"
-      style={{ containerType: "size" }}
+      className="relative mx-auto shrink-0"
+      style={{ width: "min(72vmin, 650px)", height: "min(72vmin, 650px)" }}
     >
       {/* Indicator */}
       <div
@@ -95,7 +95,7 @@ const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
           left: "29%",
           right: "29%",
           bottom: "29%",
-          borderWidth: "4.5cqw",
+          borderWidth: "3.8vmin",
         }}
       />
       {/* White Circle Behind */}
@@ -104,11 +104,11 @@ const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
       <div
         className="absolute rounded-full border-green-600 z-100 pointer-events-none"
         style={{
-          top: "2.5%",
-          left: "2.5%",
-          right: "2.5%",
-          bottom: "2.5%",
-          borderWidth: "4.5cqw",
+          top: "2%",
+          left: "2%",
+          right: "2%",
+          bottom: "2%",
+          borderWidth: "3.8vmin",
         }}
       />
     </div>
