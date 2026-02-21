@@ -33,9 +33,15 @@ const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
   };
 
   return (
-    <div className="relative w-[620px] h-[620px] mx-auto">
+    <div
+      className="relative w-full max-w-155 aspect-square mx-auto"
+      style={{ containerType: "size" }}
+    >
       {/* Indicator */}
-      <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-4xl z-40 text-gray-800">
+      <div
+        className="absolute left-1/2 -translate-x-1/2 text-4xl z-40 text-gray-800"
+        style={{ top: "-4%" }}
+      >
         ▼
       </div>
 
@@ -44,10 +50,10 @@ const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
         className="absolute overflow-hidden border-8 border-yellow-600 transition-transform duration-1500 ease-out rounded-full z-20"
         style={{
           transform: `rotate(${rotation}deg)`,
-          top: "50px",
-          left: "50px",
-          right: "50px",
-          bottom: "50px",
+          top: "8%",
+          left: "8%",
+          right: "8%",
+          bottom: "8%",
         }}
       >
         {items.map((item, index) => (
@@ -64,7 +70,7 @@ const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
               style={{
                 left: "50%",
                 top: "50%",
-                transform: `rotate(${index * sliceAngle + sliceAngle / 2}deg) translateY(-70px) translateX(-50%)`,
+                transform: `rotate(${index * sliceAngle + sliceAngle / 2}deg) translateY(-11.3%) translateX(-50%)`,
               }}
             >
               {item.name}
@@ -77,20 +83,33 @@ const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
       <button
         onClick={onSpin}
         disabled={!isSpinning && traineeCount !== 8}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 w-24 h-24 rounded-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-bold text-lg shadow-lg transition-all"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 rounded-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-bold text-lg shadow-lg transition-all"
+        style={{ width: "15.5%", height: "15.5%", aspectRatio: "1" }}
       >
         {isSpinning ? "SKIP" : "SPIN"}
       </button>
       <div
-        className="absolute rounded-full border-28 border-green-400 z-100 pointer-events-none"
-        style={{ top: "180px", left: "180px", right: "180px", bottom: "180px" }}
+        className="absolute rounded-full border-green-400 z-100 pointer-events-none"
+        style={{
+          top: "29%",
+          left: "29%",
+          right: "29%",
+          bottom: "29%",
+          borderWidth: "4.5cqw",
+        }}
       />
       {/* White Circle Behind */}
       <div className="absolute inset-0 rounded-full border-4 border-gray-600 bg-white z-10 pointer-events-none" />
 
       <div
-        className="absolute rounded-full border-28 border-green-600 z-100 pointer-events-none"
-        style={{ top: "15px", left: "15px", right: "15px", bottom: "15px" }}
+        className="absolute rounded-full border-green-600 z-100 pointer-events-none"
+        style={{
+          top: "2.5%",
+          left: "2.5%",
+          right: "2.5%",
+          bottom: "2.5%",
+          borderWidth: "4.5cqw",
+        }}
       />
     </div>
   );
