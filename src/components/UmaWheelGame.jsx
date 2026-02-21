@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback, Ref, useRef } from "react";
 import DataBase from "../data/umamusume.json";
-import Controls from "./Controls";
 import Wheel from "./Wheel";
 import TraineeFilter from "./TraineeFilter";
 
@@ -88,7 +87,7 @@ const UmaWheelGame = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-8">
+    <div className="flex flex-col items-center justify-center min-h-screen gap-8 bg-black-900">
       <h1 className="text-4xl font-bold text-pink-600">
         {winner ? winner.name : "Pick your next trainee"}
       </h1>
@@ -97,15 +96,16 @@ const UmaWheelGame = () => {
         items={DataBase.trainees.filter((t) => selectedTrainees.includes(t.id))}
         rotation={rotation}
         isSpinning={isSpinning}
-      />
-
-      <button onClick={() => setIsFilterOpen(true)}>Trainees Filter</button>
-
-      <Controls
         onSpin={handlePickRandom}
-        isSpinning={isSpinning}
         traineeCount={selectedTrainees.length}
       />
+
+      <button
+        onClick={() => setIsFilterOpen(true)}
+        className="mt-8 px-6 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-lg"
+      >
+        Trainees Filter
+      </button>
 
       {isFilterOpen && (
         <TraineeFilter
