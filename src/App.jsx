@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <h1 className="text-red-500">
-        DataBase loaded {DataBase.trainees.length}
+        {/* DataBase loaded {DataBase.trainees.length} */}
       </h1>
       <UmaWheelGame />
     </>

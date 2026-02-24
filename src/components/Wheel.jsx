@@ -3,18 +3,19 @@ import "./Wheel.css";
 import TapButton from "../assets/TapButton.png";
 import SkipButton from "../assets/SkipButton.png";
 import RedShape from "../assets/redShape.svg";
+import UmaCard from "./UmaBorder.jsx";
 
 const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
   const sliceAngle = 360 / items.length;
-  const innerRadius = 50; // Inner circle radius %
+  const innerRadius = 50;
 
   const getRingClipPath = (index) => {
     const startAngle = index * sliceAngle - 90;
-    const steps = 20; // Points for smooth curves
+    const steps = 20;
 
     const points = [];
 
-    // Outer arc (start to end)
+    // Outer arc
     for (let i = 0; i <= steps; i++) {
       const angle = startAngle + (i / steps) * sliceAngle;
       const rad = (angle * Math.PI) / 180;
@@ -23,7 +24,7 @@ const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
       points.push(`${x}% ${y}%`);
     }
 
-    // Inner arc (end to start, going backwards)
+    // Inner arc
     for (let i = steps; i >= 0; i--) {
       const angle = startAngle + (i / steps) * sliceAngle;
       const rad = (angle * Math.PI) / 180;
@@ -38,12 +39,17 @@ const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
   return (
     <div
       className="relative mx-auto shrink-0"
-      style={{ width: "min(72vmin, 650px)", height: "min(72vmin, 650px)" }}
+      style={{
+        width: "min(72vmin, 800px)",
+        height: "min(72vmin, 800px)",
+        willChange: "transform",
+        backfaceVisibility: "hidden",
+      }}
     >
       {/* Red Shape Overlay */}
       <div className="absolute inset-0 pointer-events-none z-200">
         {Array.from({ length: 11 }).map((_, index) => {
-          // add 1 to index so we skip the 0th position
+          // add 1 to index so we skip the 0 position
           const slotIndex = index + 1;
           const angle = (360 / 12) * slotIndex;
 
@@ -59,11 +65,10 @@ const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
               alt=""
               className="absolute"
               style={{
-                width: "22%",
-                height: "22%",
+                width: "21%",
+                height: "21%",
                 top: `${y}%`,
                 left: `${x}%`,
-                paddingBottom: "8px",
                 transform: `translate(-50%, -50%) rotate(${angle}deg)`,
               }}
             />
@@ -79,49 +84,92 @@ const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
 
       {/* Wheel Ring */}
       <div
-        className="absolute overflow-hidden border-8 border-[#FBD62D] transition-transform duration-1500 ease-out rounded-full z-20 shadow-[0_0_0_5px_rgba(219,187,113,1),inset_0_0_0_4px_rgba(236,185,43,1)]"
+        className="absolute overflow-hidden border-8 border-[#FBD62D] rounded-full z-20 shadow-[0_0_0_5px_rgba(219,187,113,1),inset_0_0_0_4px_rgba(236,185,43,1)]"
         style={{
+          width: "82%",
+          height: "82%",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          margin: "auto",
           transform: `rotate(${rotation}deg)`,
-          top: "9%",
-          left: "9%",
-          right: "9%",
-          bottom: "9%",
+          transition: isSpinning
+            ? "transform 0.05s linear"
+            : "transform 1.5s ease-out",
         }}
       >
-        {items.map((item, index) => (
-          <div
-            key={item.id}
-            className="absolute w-full h-full"
-            style={{
-              clipPath: getRingClipPath(index),
-              backgroundColor: index % 2 === 0 ? "#EFC37D" : "#DC9A65",
-            }}
-          >
-            <span
-              className="font-bold text-white drop-shadow-md text-center px-2 text-sm absolute"
+        {items.map((item, index) => {
+          const segmentAngle = index * sliceAngle + sliceAngle / 2 - 90;
+          const rad = (segmentAngle * Math.PI) / 180;
+          const distance = 36;
+          const posX = 50 + distance * Math.cos(rad);
+          const posY = 50 + distance * Math.sin(rad);
+
+          return (
+            <div
+              key={item.id}
+              className="absolute w-full h-full"
               style={{
-                left: "50%",
-                top: "50%",
-                transform: `rotate(${index * sliceAngle + sliceAngle / 2}deg) translateY(-11.3%) translateX(-50%)`,
+                clipPath: getRingClipPath(index),
+                backgroundColor: index % 2 === 0 ? "#EFC37D" : "#DC9A65",
               }}
             >
-              {item.name}
-            </span>
-          </div>
-        ))}
+              {/* Positioning anchor — placed at the segment midpoint, rotated to face outward */}
+              <div
+                style={{
+                  position: "absolute",
+                  left: `${posX}%`,
+                  top: `${posY}%`,
+                  transform: `translate(-50%, -50%) rotate(${segmentAngle + 90}deg)`,
+                  width: "15%",
+                  height: "15%",
+                }}
+              >
+                {/* Image wrapper: top extends above anchor, sides/bottom clipped */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "-25%",
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "flex-start",
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    style={{
+                      width: "260%",
+                      flexShrink: 0,
+                      height: "auto",
+                      display: "block",
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {/* Center Button */}
       <button
         onClick={onSpin}
         disabled={!isSpinning && traineeCount !== 8}
-        className="absolute inset-0 m-auto z-30 rounded-full transition-all active:scale-95 disabled:cursor-not-allowed disabled:grayscale bg-transparent border-none p-0 outline-none flex items-center justify-center overflow-hidden"
+        className="absolute inset-0 m-auto z-30 rounded-full transition-transform active:scale-95 disabled:cursor-not-allowed disabled:grayscale bg-transparent border-none p-0 outline-none flex items-center justify-center overflow-hidden"
         style={{
           width: "80%",
           height: "80%",
           clipPath: "circle(20%)",
           WebkitClipPath: "circle(20%)",
           WebkitTapHighlightColor: "transparent",
+          transformOrigin: "center",
+          willChange: "transform",
         }}
       >
         {isSpinning ? (
@@ -129,7 +177,12 @@ const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
             src={SkipButton}
             alt="Skip"
             className="object-contain pointer-events-none"
-            style={{ width: "77%", height: "77%" }}
+            style={{
+              width: "77%",
+              height: "77%",
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+            }}
           />
         ) : (
           <img
@@ -141,6 +194,8 @@ const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
               height: "92%",
               marginBottom: "8px",
               marginLeft: "4px",
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
             }}
           />
         )}
