@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, Ref, useRef } from "react";
 import DataBase from "../data/umamusume.json";
 import Wheel from "./Wheel";
 import TraineeFilter from "./TraineeFilter";
+import Button from "./Button";
 
 const UmaWheelGame = () => {
   const [winner, setWinner] = useState(null);
@@ -13,7 +14,7 @@ const UmaWheelGame = () => {
     DataBase.trainees.map((t) => t.id),
   );
 
-  const spinSpeed = 2; // degrees per ms
+  const spinSpeed = 1; // degrees per ms
 
   const rotationRef = useRef(0); // ref for the random timeout
 
@@ -98,14 +99,13 @@ const UmaWheelGame = () => {
         isSpinning={isSpinning}
         onSpin={handlePickRandom}
         traineeCount={selectedTrainees.length}
+        winner={winner}
       />
 
-      <button
+      <Button
         onClick={() => setIsFilterOpen(true)}
         className="mt-8 px-6 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-lg"
-      >
-        Trainees Filter
-      </button>
+      ></Button>
 
       {isFilterOpen && (
         <TraineeFilter

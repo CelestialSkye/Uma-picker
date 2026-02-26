@@ -3,11 +3,30 @@ import "./Wheel.css";
 import TapButton from "../assets/TapButton.png";
 import SkipButton from "../assets/SkipButton.png";
 import RedShape from "../assets/redShape.svg";
-import UmaCard from "./UmaBorder.jsx";
+import SpriteAnimation from "./SpriteAnimation";
+import MySpriteSheet from "../assets/sprites/idle.png";
+import { MAMBO_ANIMS } from "../data/SPRITE_CONFIG";
 
-const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
+const Wheel = ({
+  items,
+  rotation,
+  onSpin,
+  isSpinning,
+  traineeCount,
+  // winner,
+}) => {
   const sliceAngle = 360 / items.length;
   const innerRadius = 50;
+
+  // Determine animation type based on game state
+  const getAnimationType = () => {
+    // if (winner) return "WINNER";
+    if (isSpinning) return "RUNNING";
+    return "IDLE";
+  };
+
+  const animationType = getAnimationType();
+  const currentAnim = MAMBO_ANIMS[animationType] || MAMBO_ANIMS["IDLE"];
 
   const getRingClipPath = (index) => {
     const startAngle = index * sliceAngle - 90;
@@ -40,10 +59,11 @@ const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
     <div
       className="relative mx-auto shrink-0"
       style={{
-        width: "min(72vmin, 800px)",
-        height: "min(72vmin, 800px)",
+        width: "min(72vmin, 600px)",
+        height: "min(72vmin, 600px)",
         willChange: "transform",
         backfaceVisibility: "hidden",
+        marginTop: "120px",
       }}
     >
       {/* Red Shape Overlay */}
@@ -76,11 +96,20 @@ const Wheel = ({ items, rotation, onSpin, isSpinning, traineeCount }) => {
         })}
       </div>
 
-      {/* Indicator (this should be where the uma be*/}
+      {/* Indicator (this is where the uma should be)*/}
       <div
-        className="absolute left-1/2 -translate-x-1/2 text-4xl z-40 text-gray-800"
-        style={{ top: "-4%" }}
-      ></div>
+        className="absolute left-1/2 -translate-x-1/2"
+        style={{ top: "-27%", zIndex: 9999 }}
+      >
+        <SpriteAnimation
+          image={currentAnim.file} // from SPRITE_CONFIG
+          cols={currentAnim.cols} // from SPRITE_CONFIG
+          width={currentAnim.width}
+          height={currentAnim.height}
+          fps={currentAnim.fps}
+          frames={currentAnim.frames}
+        />
+      </div>
 
       {/* Wheel Ring */}
       <div
