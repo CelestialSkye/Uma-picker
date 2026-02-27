@@ -4,6 +4,7 @@ import Wheel from "./Wheel";
 import TraineeFilter from "./TraineeFilter";
 import Button from "./Button";
 import WinnerModal from "./WinnerModal";
+import { useImagePreload } from "../hooks/useImagePreload";
 
 const UmaWheelGame = () => {
   const [winner, setWinner] = useState(null);
@@ -16,6 +17,10 @@ const UmaWheelGame = () => {
   const [selectedTrainees, setSelectedTrainees] = useState(
     DataBase.trainees.map((t) => t.id),
   );
+
+  // Preload all trainee images
+  const traineeImages = DataBase.trainees.map((t) => t.image);
+  useImagePreload(traineeImages);
 
   const spinSpeed = 1; // degrees per ms
 

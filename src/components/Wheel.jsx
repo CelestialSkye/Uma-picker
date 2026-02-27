@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "./Wheel.css";
 import TapButton from "../assets/TapButton.png";
 import SkipButton from "../assets/SkipButton.png";
 import RedShape from "../assets/redShape.svg";
 import SpriteAnimation from "./SpriteAnimation";
-import MySpriteSheet from "../assets/sprites/idle.png";
 import { MAMBO_ANIMS } from "../data/SPRITE_CONFIG";
+import LoadingSpinner from "./LoadingSpinner";
 
 const Wheel = ({
   items,
@@ -17,19 +17,38 @@ const Wheel = ({
   isIntroFinished,
   setIsIntroFinished,
 }) => {
+  const [spritesLoaded, setSpritesLoaded] = useState(false);
   const sliceAngle = 360 / items.length;
   const innerRadius = 50;
+
+  // Memoize the onFinish callback to prevent infinite effect loops
+  const handleAnimationFinish = useCallback(() => {
+    // Defer state update to avoid updating parent during child render
+    setTimeout(() => setIsIntroFinished(true), 0);
+  }, [setIsIntroFinished]);
 
   useEffect(() => {
     if (isSpinning || !winner) {
       setIsIntroFinished(false);
     }
-  }, [isSpinning, winner]);
+  }, [isSpinning, winner, setIsIntroFinished]);
 
-  // Preload sprite images on mount
+  // Preload all sprite images properly
   useEffect(() => {
-    Object.values(MAMBO_ANIMS).forEach(({ file }) => {
+    const sprites = Object.values(MAMBO_ANIMS);
+    let loadedCount = 0;
+
+    const checkAllLoaded = () => {
+      loadedCount++;
+      if (loadedCount === sprites.length) {
+        setSpritesLoaded(true);
+      }
+    };
+
+    sprites.forEach(({ file }) => {
       const img = new Image();
+      img.onload = checkAllLoaded;
+      img.onerror = checkAllLoaded; // Count as loaded even if error
       img.src = file;
     });
   }, []);
@@ -84,6 +103,17 @@ const Wheel = ({
         marginTop: "120px",
       }}
     >
+      {!spritesLoaded && (
+        <div
+          className="absolute inset-0 z-999 flex items-center justify-center"
+          style={{
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            borderRadius: "50%",
+          }}
+        >
+          <LoadingSpinner text="Loading sprites..." />
+        </div>
+      )}
       {/* Red Shape Overlay */}
       <div className="absolute inset-0 pointer-events-none z-200">
         {Array.from({ length: 11 }).map((_, index) => {
@@ -120,15 +150,15 @@ const Wheel = ({
         style={{ top: "-27%", zIndex: 9999 }}
       >
         <SpriteAnimation
-          key={winner ? `winner-${winner.id}-${isIntroFinished}` : "not-winner"}
+          key={winner ? `winner-${winner.id}` : "not-winner"}
           image={currentAnim.file}
-          cols={currentAnim.cols} // from SPRITE_CONFIG
+          cols={currentAnim.cols}
           width={currentAnim.width}
           height={currentAnim.height}
           fps={currentAnim.fps}
           frames={currentAnim.frames}
           loop={animationType !== "WINNER"}
-          onFinish={() => setIsIntroFinished(true)}
+          onFinish={handleAnimationFinish}
         />
       </div>
 
@@ -210,7 +240,7 @@ const Wheel = ({
       {/* Center Button */}
       <button
         onClick={onSpin}
-        disabled={!isSpinning && traineeCount !== 8}
+        disabled={!spritesLoaded || (!isSpinning && traineeCount !== 8)}
         className="absolute inset-0 m-auto z-30 rounded-full transition-transform active:scale-95 disabled:cursor-not-allowed disabled:grayscale bg-transparent border-none p-0 outline-none flex items-center justify-center overflow-hidden"
         style={{
           width: "80%",

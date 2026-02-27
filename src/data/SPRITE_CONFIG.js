@@ -7,7 +7,7 @@ import winSheetLoop from "../assets/sprites/winloop.png";
 export const MAMBO_ANIMS = {
   IDLE: {
     file: idleSheet,
-    frames: 702,
+    frames: 670,
     cols: 27,
     width: 200,
     height: 200,

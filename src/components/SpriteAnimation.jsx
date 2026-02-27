@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 const SpriteAnimation = ({
   image,
@@ -11,13 +11,45 @@ const SpriteAnimation = ({
   loop,
 }) => {
   const [frame, setFrame] = useState(0);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const config = useMemo(
     () => ({ image, cols, width, height, fps, frames }),
     [image, cols, width, height, fps, frames],
   );
 
   useEffect(() => {
-    if (!config.fps || !config.frames) return;
+    setTimeout(() => setFrame(0), 0);
+  }, [image]);
+
+  // Preload image before starting animation
+  useEffect(() => {
+    if (!config.image) {
+      return;
+    }
+
+    let isMounted = true;
+    const img = new Image();
+
+    const handleLoad = () => {
+      if (isMounted) setImageLoaded(true);
+    };
+    const handleError = () => {
+      // Even on error, set as loaded to prevent infinite loading
+      if (isMounted) setImageLoaded(true);
+    };
+
+    img.onload = handleLoad;
+    img.onerror = handleError;
+    img.src = config.image;
+
+    return () => {
+      isMounted = false;
+    };
+  }, [config.image]);
+
+  // Start animation only after image is loaded
+  useEffect(() => {
+    if (!imageLoaded || !config.fps || !config.frames) return;
 
     const msPerFrame = Math.floor(1000 / config.fps);
 
@@ -39,7 +71,7 @@ const SpriteAnimation = ({
     return () => {
       clearInterval(ticker);
     };
-  }, [config.image, config.fps, config.frames, loop, onFinish]);
+  }, [imageLoaded, config.fps, config.frames, loop, onFinish]);
 
   // GRID MATH
   const col = frame % config.cols;

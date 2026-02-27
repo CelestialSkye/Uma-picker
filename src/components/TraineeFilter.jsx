@@ -19,7 +19,13 @@ const TraineeFilter = ({
     }
 
     setSelected(newSelected);
-    onConfirm(newSelected);
+  };
+
+  const handleConfirm = () => {
+    if (selected.length === requiredTrainees) {
+      onConfirm(selected);
+      onClose();
+    }
   };
 
   return (
@@ -44,9 +50,22 @@ const TraineeFilter = ({
               checked={selected.includes(trainee.id)}
               onChange={() => handleToggle(trainee.id)}
             />
-            {trainee.name}
+
+            <img src={trainee.image} />
           </label>
         ))}
+
+        <button
+          disabled={selected.length !== requiredTrainees}
+          className={`mt-4 px-4 py-2 rounded ${
+            selected.length === requiredTrainees
+              ? "bg-pink-600 text-white"
+              : "bg-gray-300 cursor-not-allowed"
+          }`}
+          onClick={handleConfirm}
+        >
+          Confirm Selection
+        </button>
       </div>
     </div>
   );
