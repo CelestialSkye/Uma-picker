@@ -1,8 +1,20 @@
 import React, { useState, useEffect, useMemo } from "react";
 
-const SpriteAnimation = ({ image, cols, width, height, fps, frames }) => {
+const SpriteAnimation = ({
+  image,
+  cols,
+  width,
+  height,
+  fps,
+  frames,
+  onFinish,
+  loop,
+}) => {
   const [frame, setFrame] = useState(0);
-  const config = useMemo(() => ({ image, cols, width, height, fps, frames }), [image, cols, width, height, fps, frames]);
+  const config = useMemo(
+    () => ({ image, cols, width, height, fps, frames }),
+    [image, cols, width, height, fps, frames],
+  );
 
   useEffect(() => {
     if (!config.fps || !config.frames) return;
@@ -13,7 +25,12 @@ const SpriteAnimation = ({ image, cols, width, height, fps, frames }) => {
       setFrame((prevFrame) => {
         const nextFrame = prevFrame + 1;
         if (nextFrame >= config.frames) {
-          return 0;
+          if (loop) {
+            return 0;
+          } else {
+            onFinish?.();
+            return prevFrame;
+          }
         }
         return nextFrame;
       });
@@ -22,8 +39,7 @@ const SpriteAnimation = ({ image, cols, width, height, fps, frames }) => {
     return () => {
       clearInterval(ticker);
     };
-  }, [config.fps, config.frames]);
-
+  }, [config.image, config.fps, config.frames, loop, onFinish]);
 
   // GRID MATH
   const col = frame % config.cols;

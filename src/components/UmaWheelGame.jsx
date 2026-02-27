@@ -12,6 +12,7 @@ const UmaWheelGame = () => {
   const [rotation, setRotation] = useState(0);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isWinnerOpen, setIsWinnerOpen] = useState(false);
+  const [isIntroFinished, setIsIntroFinished] = useState(false);
   const [selectedTrainees, setSelectedTrainees] = useState(
     DataBase.trainees.map((t) => t.id),
   );
@@ -19,6 +20,7 @@ const UmaWheelGame = () => {
   const spinSpeed = 1; // degrees per ms
 
   const rotationRef = useRef(0); // ref for the random timeout
+  const shouldResetIntroRef = useRef(false);
 
   const stopSpinning = useCallback(() => {
     setIsSpinning(false);
@@ -35,6 +37,17 @@ const UmaWheelGame = () => {
     //This is to open the Winner modal
     setIsWinnerOpen(true);
   }, [selectedTrainees]);
+
+  useEffect(() => {
+    const shouldReset = winner === null || isSpinning;
+    if (shouldReset && !shouldResetIntroRef.current) {
+      shouldResetIntroRef.current = true;
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIsIntroFinished(false);
+    } else if (!shouldReset) {
+      shouldResetIntroRef.current = false;
+    }
+  }, [winner, isSpinning]);
 
   useEffect(() => {
     if (isSpinning) {
@@ -105,6 +118,8 @@ const UmaWheelGame = () => {
         onSpin={handlePickRandom}
         traineeCount={selectedTrainees.length}
         winner={winner}
+        isIntroFinished={isIntroFinished}
+        setIsIntroFinished={setIsIntroFinished}
       />
 
       <Button
@@ -126,7 +141,10 @@ const UmaWheelGame = () => {
       {isWinnerOpen && (
         <WinnerModal
           winnerData={winner}
-          onClose={() => setIsWinnerOpen(false)}
+          onClose={() => {
+            setIsWinnerOpen(false);
+            setWinner(null);
+          }}
         />
       )}
     </div>

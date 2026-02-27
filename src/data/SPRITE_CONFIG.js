@@ -39,6 +39,6 @@ export const MAMBO_ANIMS = {
     width: 200,
     height: 200,
     fps: 60,
-    loop: false,
+    loop: true,
   },
 };

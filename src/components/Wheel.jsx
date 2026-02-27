@@ -14,9 +14,17 @@ const Wheel = ({
   isSpinning,
   traineeCount,
   winner,
+  isIntroFinished,
+  setIsIntroFinished,
 }) => {
   const sliceAngle = 360 / items.length;
   const innerRadius = 50;
+
+  useEffect(() => {
+    if (isSpinning || !winner) {
+      setIsIntroFinished(false);
+    }
+  }, [isSpinning, winner]);
 
   // Preload sprite images on mount
   useEffect(() => {
@@ -28,8 +36,10 @@ const Wheel = ({
 
   // Determine animation type based on game state
   const getAnimationType = () => {
-    if (winner) return "WINNER";
     if (isSpinning) return "RUNNING";
+    if (winner) {
+      return isIntroFinished ? "WINNER_LOOP" : "WINNER";
+    }
     return "IDLE";
   };
 
@@ -110,12 +120,15 @@ const Wheel = ({
         style={{ top: "-27%", zIndex: 9999 }}
       >
         <SpriteAnimation
-          image={currentAnim.file} // from SPRITE_CONFIG
+          key={winner ? `winner-${winner.id}-${isIntroFinished}` : "not-winner"}
+          image={currentAnim.file}
           cols={currentAnim.cols} // from SPRITE_CONFIG
           width={currentAnim.width}
           height={currentAnim.height}
           fps={currentAnim.fps}
           frames={currentAnim.frames}
+          loop={animationType !== "WINNER"}
+          onFinish={() => setIsIntroFinished(true)}
         />
       </div>
 
