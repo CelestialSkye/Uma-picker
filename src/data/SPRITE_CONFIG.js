@@ -1,7 +1,8 @@
 // Import your images here so the bundler sees them
 import idleSheet from "../assets/sprites/idle.png";
 import runSheet from "../assets/sprites/running.png";
-// import winSheet from "../assets/sprites/winner.png";
+import winSheet from "../assets/sprites/winpose.png";
+import winSheetLoop from "../assets/sprites/winloop.png";
 
 export const MAMBO_ANIMS = {
   IDLE: {
@@ -22,13 +23,22 @@ export const MAMBO_ANIMS = {
     fps: 60,
     loop: true,
   },
-  // WINNER: {
-  //   file: winSheet,
-  //   frames: 60,
-  //   cols: 8,
-  //   width: 300,
-  //   height: 300,
-  //   fps: 20,
-  //   loop: false,
-  // },
+  WINNER: {
+    file: winSheet,
+    frames: 50,
+    cols: 8,
+    width: 200,
+    height: 200,
+    fps: 60,
+    loop: false,
+  },
+  WINNER_LOOP: {
+    file: winSheetLoop,
+    frames: 50,
+    cols: 8,
+    width: 200,
+    height: 200,
+    fps: 60,
+    loop: false,
+  },
 };

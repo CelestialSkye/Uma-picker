@@ -3,6 +3,7 @@ import DataBase from "../data/umamusume.json";
 import Wheel from "./Wheel";
 import TraineeFilter from "./TraineeFilter";
 import Button from "./Button";
+import WinnerModal from "./WinnerModal";
 
 const UmaWheelGame = () => {
   const [winner, setWinner] = useState(null);
@@ -10,6 +11,7 @@ const UmaWheelGame = () => {
   const [startTime, setStartTime] = useState(0);
   const [rotation, setRotation] = useState(0);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isWinnerOpen, setIsWinnerOpen] = useState(false);
   const [selectedTrainees, setSelectedTrainees] = useState(
     DataBase.trainees.map((t) => t.id),
   );
@@ -30,6 +32,8 @@ const UmaWheelGame = () => {
     const winnerIndex = Math.floor(currentPosition / degreesPerSlice);
 
     setWinner(filteredTrainees[winnerIndex]);
+    //This is to open the Winner modal
+    setIsWinnerOpen(true);
   }, [selectedTrainees]);
 
   useEffect(() => {
@@ -90,7 +94,8 @@ const UmaWheelGame = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-8 bg-black-900">
       <h1 className="text-4xl font-bold text-pink-600">
-        {winner ? winner.name : ""}
+        {/* {winner ? winner.name : ""} */}
+        {console.log(winner ? winner.name : "")}
       </h1>
 
       <Wheel
@@ -104,7 +109,7 @@ const UmaWheelGame = () => {
 
       <Button
         onClick={() => setIsFilterOpen(true)}
-        className="mt-8 px-6 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-lg"
+        className="mt-8 px-6 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-lg w-48"
       ></Button>
 
       {isFilterOpen && (
@@ -115,6 +120,13 @@ const UmaWheelGame = () => {
           onConfirm={(newSelection) => {
             setSelectedTrainees(newSelection);
           }}
+        />
+      )}
+
+      {isWinnerOpen && (
+        <WinnerModal
+          winnerData={winner}
+          onClose={() => setIsWinnerOpen(false)}
         />
       )}
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Wheel.css";
 import TapButton from "../assets/TapButton.png";
 import SkipButton from "../assets/SkipButton.png";
@@ -13,14 +13,22 @@ const Wheel = ({
   onSpin,
   isSpinning,
   traineeCount,
-  // winner,
+  winner,
 }) => {
   const sliceAngle = 360 / items.length;
   const innerRadius = 50;
 
+  // Preload sprite images on mount
+  useEffect(() => {
+    Object.values(MAMBO_ANIMS).forEach(({ file }) => {
+      const img = new Image();
+      img.src = file;
+    });
+  }, []);
+
   // Determine animation type based on game state
   const getAnimationType = () => {
-    // if (winner) return "WINNER";
+    if (winner) return "WINNER";
     if (isSpinning) return "RUNNING";
     return "IDLE";
   };
