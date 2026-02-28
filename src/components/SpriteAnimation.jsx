@@ -3,8 +3,8 @@ import { useState, useEffect, useMemo } from "react";
 const SpriteAnimation = ({
   image,
   cols,
-  width,
-  height,
+  width = 200,
+  height = 200,
   fps,
   frames,
   onFinish,
@@ -12,9 +12,29 @@ const SpriteAnimation = ({
 }) => {
   const [frame, setFrame] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const baseWidth = typeof width === "number" ? width : 200;
+  const baseHeight = typeof height === "number" ? height : 200;
+  const displayWidth = typeof width === "string" ? width : `${width}px`;
+  const displayHeight = typeof height === "string" ? height : `${height}px`;
+
+  const getPixelValue = (value) => {
+    if (typeof value === "number") return value;
+    if (typeof value === "string") {
+      const num = parseFloat(value);
+      if (value.includes("vmin")) return (num / 100) * Math.min(window.innerWidth, window.innerHeight);
+      if (value.includes("vmax")) return (num / 100) * Math.max(window.innerWidth, window.innerHeight);
+      if (value.includes("vw")) return (num / 100) * window.innerWidth;
+      if (value.includes("vh")) return (num / 100) * window.innerHeight;
+      return num;
+    }
+    return 200;
+  };
+
+  const displayPixelWidth = getPixelValue(displayWidth);
+  const displayPixelHeight = getPixelValue(displayHeight);
   const config = useMemo(
-    () => ({ image, cols, width, height, fps, frames }),
-    [image, cols, width, height, fps, frames],
+    () => ({ image, cols, width: baseWidth, height: baseHeight, fps, frames }),
+    [image, cols, baseWidth, baseHeight, fps, frames],
   );
 
   useEffect(() => {
@@ -80,12 +100,12 @@ const SpriteAnimation = ({
   return (
     <div
       style={{
-        width: `${config.width}px`,
-        height: `${config.height}px`,
+        width: displayWidth,
+        height: displayHeight,
         backgroundImage: `url(${config.image})`,
         backgroundRepeat: "no-repeat",
-        backgroundSize: `${config.width * config.cols}px auto`,
-        backgroundPosition: `-${col * config.width}px -${row * config.height}px`,
+        backgroundSize: `${displayPixelWidth * config.cols}px auto`,
+        backgroundPosition: `-${col * displayPixelWidth}px -${row * displayPixelHeight}px`,
         imageRendering: "pixelated",
       }}
     />

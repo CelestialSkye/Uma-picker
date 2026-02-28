@@ -153,8 +153,8 @@ const Wheel = ({
           key={winner ? `winner-${winner.id}` : "not-winner"}
           image={currentAnim.file}
           cols={currentAnim.cols}
-          width={currentAnim.width}
-          height={currentAnim.height}
+          width="24vmin"
+          height="24vmin"
           fps={currentAnim.fps}
           frames={currentAnim.frames}
           loop={animationType !== "WINNER"}
