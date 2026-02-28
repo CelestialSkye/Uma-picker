@@ -241,14 +241,16 @@ const Wheel = ({
       <button
         onClick={onSpin}
         disabled={!spritesLoaded || (!isSpinning && traineeCount !== 8)}
-        className="absolute inset-0 m-auto z-30 rounded-full transition-transform active:scale-95 disabled:cursor-not-allowed disabled:grayscale bg-transparent border-none p-0 outline-none flex items-center justify-center overflow-hidden"
+        className="absolute z-30 transition-transform active:scale-95 disabled:cursor-not-allowed disabled:grayscale bg-transparent border-none p-0 outline-none flex items-center justify-center"
         style={{
-          width: "80%",
-          height: "80%",
+          width: "calc(min(72vmin, 580px) * 0.75)",
+          height: "calc(min(72vmin, 580px) * 0.75)",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
           clipPath: "circle(20%)",
           WebkitClipPath: "circle(20%)",
           WebkitTapHighlightColor: "transparent",
-          transformOrigin: "center",
           willChange: "transform",
         }}
       >
@@ -258,8 +260,8 @@ const Wheel = ({
             alt="Skip"
             className="object-contain pointer-events-none"
             style={{
-              width: "77%",
-              height: "77%",
+              width: "85%",
+              height: "85%",
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden",
             }}
@@ -270,10 +272,8 @@ const Wheel = ({
             alt="Spin"
             className="object-contain pointer-events-none"
             style={{
-              width: "92%",
-              height: "92%",
-              marginBottom: "8px",
-              marginLeft: "4px",
+              width: "90%",
+              height: "90%",
               backfaceVisibility: "hidden",
               WebkitBackfaceVisibility: "hidden",
             }}
