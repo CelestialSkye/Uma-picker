@@ -111,10 +111,10 @@ const UmaWheelGame = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-8 bg-black-900">
-      <h1 className="text-4xl font-bold text-pink-600">
-        {/* {winner ? winner.name : ""} */}
+      {/* <h1 className="text-4xl font-bold text-pink-600">
+        {winner ? winner.name : ""}
         {console.log(winner ? winner.name : "")}
-      </h1>
+      </h1> */}
 
       <Wheel
         items={DataBase.trainees.filter((t) => selectedTrainees.includes(t.id))}

@@ -96,8 +96,8 @@ const Wheel = ({
     <div
       className="relative mx-auto shrink-0"
       style={{
-        width: "min(72vmin, 600px)",
-        height: "min(72vmin, 600px)",
+        width: "min(72vmin, 580px)",
+        height: "min(72vmin, 580px)",
         willChange: "transform",
         backfaceVisibility: "hidden",
         marginTop: "120px",
@@ -147,7 +147,7 @@ const Wheel = ({
       {/* Indicator (this is where the uma should be)*/}
       <div
         className="absolute left-1/2 -translate-x-1/2"
-        style={{ top: "-27%", zIndex: 9999 }}
+        style={{ top: "-21vmin", zIndex: 9999 }}
       >
         <SpriteAnimation
           key={winner ? `winner-${winner.id}` : "not-winner"}

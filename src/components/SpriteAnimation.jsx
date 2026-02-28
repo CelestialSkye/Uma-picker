@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 
 const SpriteAnimation = ({
   image,
@@ -30,8 +30,33 @@ const SpriteAnimation = ({
     return 200;
   };
 
-  const displayPixelWidth = getPixelValue(displayWidth);
-  const displayPixelHeight = getPixelValue(displayHeight);
+  // Track pixel dimensions with RAF batching for smooth resize
+  const rafRef = useRef(null);
+  const [pixelValues, setPixelValues] = useState(() => ({
+    w: Math.round(getPixelValue(displayWidth)),
+    h: Math.round(getPixelValue(displayHeight)),
+  }));
+
+  useEffect(() => {
+    const handleResize = () => {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
+        setPixelValues({
+          w: Math.round(getPixelValue(displayWidth)),
+          h: Math.round(getPixelValue(displayHeight)),
+        });
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [displayWidth, displayHeight]);
+
+  const displayPixelWidth = pixelValues.w;
+  const displayPixelHeight = pixelValues.h;
   const config = useMemo(
     () => ({ image, cols, width: baseWidth, height: baseHeight, fps, frames }),
     [image, cols, baseWidth, baseHeight, fps, frames],
@@ -104,9 +129,13 @@ const SpriteAnimation = ({
         height: displayHeight,
         backgroundImage: `url(${config.image})`,
         backgroundRepeat: "no-repeat",
-        backgroundSize: `${displayPixelWidth * config.cols}px auto`,
-        backgroundPosition: `-${col * displayPixelWidth}px -${row * displayPixelHeight}px`,
+        backgroundSize: `${Math.round(displayPixelWidth * config.cols)}px auto`,
+        backgroundPosition: `-${Math.round(col * displayPixelWidth)}px -${Math.round(row * displayPixelHeight)}px`,
         imageRendering: "pixelated",
+        contain: "layout paint",
+        willChange: "background-position",
+        backfaceVisibility: "hidden",
+        WebkitFontSmoothing: "antialiased",
       }}
     />
   );

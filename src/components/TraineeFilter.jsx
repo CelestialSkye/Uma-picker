@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Button from "./Button";
 
 const TraineeFilter = ({
   allTrainees,
@@ -95,7 +96,18 @@ const TraineeFilter = ({
           })}
         </div>
 
-        <button
+        <Button
+          disabled={selected.length !== requiredTrainees}
+          className={`mt-6 w-full py-4 rounded-xl font-bold transition-all ${
+            selected.length === requiredTrainees
+              ? "bg-pink-600 text-white shadow-lg"
+              : "bg-gray-200 text-gray-400"
+          }`}
+          onClick={handleConfirm}
+          text="Confirm"
+        />
+
+        {/* <button
           disabled={selected.length !== requiredTrainees}
           className={`mt-6 w-full py-4 rounded-xl font-bold transition-all ${
             selected.length === requiredTrainees
@@ -105,7 +117,7 @@ const TraineeFilter = ({
           onClick={handleConfirm}
         >
           Confirm
-        </button>
+        </button> */}
       </div>
     </div>
   );
