@@ -38,18 +38,25 @@ const Wheel = ({
     const sprites = Object.values(MAMBO_ANIMS);
     let loadedCount = 0;
 
-    const checkAllLoaded = () => {
-      loadedCount++;
-      if (loadedCount === sprites.length) {
-        setSpritesLoaded(true);
-      }
-    };
-
-    sprites.forEach(({ file }) => {
+    sprites.forEach((anim) => {
       const img = new Image();
-      img.onload = checkAllLoaded;
-      img.onerror = checkAllLoaded; // Count as loaded even if error
-      img.src = file;
+      img.src = anim.file;
+
+      img
+        .decode()
+        .then(() => {
+          loadedCount++;
+          if (loadedCount === sprites.length) {
+            setSpritesLoaded(true);
+          }
+        })
+        .catch((err) => {
+          console.error("Sprite failed to decode:", anim.file, err);
+          loadedCount++;
+          if (loadedCount === sprites.length) {
+            setSpritesLoaded(true);
+          }
+        });
     });
   }, []);
 
@@ -241,13 +248,14 @@ const Wheel = ({
       <button
         onClick={onSpin}
         disabled={!spritesLoaded || (!isSpinning && traineeCount !== 8)}
-        className="absolute z-30 transition-transform active:scale-95 disabled:cursor-not-allowed disabled:grayscale bg-transparent border-none p-0 outline-none flex items-center justify-center"
+        className="absolute z-30 bg-transparent border-none p-0 outline-none flex items-center justify-center"
         style={{
           width: "calc(min(72vmin, 580px) * 0.75)",
           height: "calc(min(72vmin, 580px) * 0.75)",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
+          transformOrigin: "center",
           clipPath: "circle(20%)",
           WebkitClipPath: "circle(20%)",
           WebkitTapHighlightColor: "transparent",

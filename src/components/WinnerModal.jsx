@@ -3,7 +3,7 @@ const WinnerModal = ({ winnerData, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-slate-950/50 backdrop-blur-sm flex items-center justify-center z-[9999]"
+      className="fixed inset-0 bg-slate-950/50  flex items-center justify-center z-[9999]"
       onClick={onClose}
     >
       <div
