@@ -1,10 +1,18 @@
-import { useEffect, useState, useCallback, Ref, useRef } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import DataBase from "../data/umamusume.json";
 import Wheel from "./Wheel";
 import TraineeFilter from "./TraineeFilter";
 import Button from "./Button";
 import WinnerModal from "./WinnerModal";
 import { useImagePreload } from "../hooks/useImagePreload";
+import { useAudioPreload } from "../hooks/useAudioPreload";
+
+// Static arrays defined outside component to prevent re-creation on every render
+const SOUND_EFFECTS = [
+  "/SoundEffects/spin-sound.wav",
+  "/SoundEffects/winner-sound.wav",
+];
+const TRAINEE_IMAGES = DataBase.trainees.map((t) => t.image);
 
 const UmaWheelGame = () => {
   const [winner, setWinner] = useState(null);
@@ -17,18 +25,46 @@ const UmaWheelGame = () => {
   const [selectedTrainees, setSelectedTrainees] = useState(
     DataBase.trainees.map((t) => t.id),
   );
-
   // Preload all trainee images
-  const traineeImages = DataBase.trainees.map((t) => t.image);
-  useImagePreload(traineeImages);
+  useImagePreload(TRAINEE_IMAGES);
+
+  // Preload all sound effects and get the Audio objects back for direct playback
+  const { audiosRef } = useAudioPreload(SOUND_EFFECTS);
+
+  // Track if sprites are loaded
+  const [spritesLoaded, setSpritesLoaded] = useState(false);
 
   const spinSpeed = 1; // degrees per ms
 
-  const rotationRef = useRef(0); // ref for the random timeout
+  const rotationRef = useRef(0);
   const shouldResetIntroRef = useRef(false);
+  const performStopRef = useRef(null);
 
-  const stopSpinning = useCallback(() => {
+  //Stop spinning function
+  const performStop = useCallback(() => {
+    const spinAudio = audiosRef.current[SOUND_EFFECTS[0]];
+    const winnerAudio = audiosRef.current[SOUND_EFFECTS[1]];
+
+    // Stop spin sound immediately
+    try {
+      spinAudio?.pause();
+      if (spinAudio) spinAudio.currentTime = 0;
+    } catch (e) {
+      console.log("Error stopping spin sound:", e);
+    }
+
     setIsSpinning(false);
+
+    // Play winner sound immediately
+    try {
+      if (winnerAudio) {
+        winnerAudio.currentTime = 0;
+        winnerAudio.play().catch(() => {});
+      }
+    } catch (e) {
+      console.log("Error playing winner sound:", e);
+    }
+
     const currentRotation = rotationRef.current;
 
     const filteredTrainees = DataBase.trainees.filter((t) =>
@@ -41,7 +77,12 @@ const UmaWheelGame = () => {
     setWinner(filteredTrainees[winnerIndex]);
     //This is to open the Winner modal
     setIsWinnerOpen(true);
-  }, [selectedTrainees]);
+  }, [selectedTrainees, audiosRef]);
+
+  // Keep ref updated with latest performStop to avoid dependency issues
+  useEffect(() => {
+    performStopRef.current = performStop;
+  }, [performStop]);
 
   useEffect(() => {
     const shouldReset = winner === null || isSpinning;
@@ -66,7 +107,7 @@ const UmaWheelGame = () => {
       // should stop the loop after a random short timer
       const randomDuration = 4000 + Math.random() * 5000;
       const timer = setTimeout(() => {
-        stopSpinning();
+        performStopRef.current?.();
       }, randomDuration);
 
       return () => {
@@ -74,43 +115,38 @@ const UmaWheelGame = () => {
         clearTimeout(timer);
       };
     }
-  }, [isSpinning, startTime, stopSpinning]);
+  }, [isSpinning, startTime]);
 
   const handlePickRandom = () => {
     const now = Date.now();
 
     if (!isSpinning) {
+      // play the wheel spin sound effect immediately
+      try {
+        const spinAudio = audiosRef.current[SOUND_EFFECTS[0]];
+        if (spinAudio) {
+          spinAudio.currentTime = 0;
+          spinAudio.play().catch(() => {});
+        }
+      } catch (e) {
+        console.log("Audio play error:", e);
+      }
+
       setIsSpinning(true);
       setStartTime(now);
     } else {
-      stopSpinning();
-
-      // //pick a winner randomly
-      // const list = DataBase.trainees;
-      // const randomIndex = Math.floor(Math.random() * list.length);
-      // const degreesPerSlice = 360 / list.length;
-
-      // // Calculate the stop pos
-      // const targetRotation =
-      //   randomIndex * degreesPerSlice + degreesPerSlice / 2;
-
-      // const finalRotation =
-      //   rotation + 360 + (targetRotation - (rotation % 360));
-
-      // console.log("Winner:", list[randomIndex].name);
-      // console.log("Target Rotation:", targetRotation);
-      // console.log("Current Rotation:", rotation);
-      // console.log("Current Position (wrapped):", rotation % 360);
-      // console.log("Final Rotation:", finalRotation);
-      // console.log("Final Position (wrapped):", finalRotation % 360);
-
-      // setRotation(finalRotation);
-      // setWinner(list[randomIndex]);
+      performStop();
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-8 bg-black-900">
+    <div className="flex flex-col items-center justify-center min-h-screen gap-8 bg-black-900 relative">
+      {!spritesLoaded && (
+        <div className="fixed inset-0 z-9999 flex items-center justify-center bg-black bg-opacity-75">
+          <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin" />
+        </div>
+      )}
+
       {/* <h1 className="text-4xl font-bold text-pink-600">
         {winner ? winner.name : ""}
         {console.log(winner ? winner.name : "")}
@@ -125,6 +161,7 @@ const UmaWheelGame = () => {
         winner={winner}
         isIntroFinished={isIntroFinished}
         setIsIntroFinished={setIsIntroFinished}
+        onSpritesLoaded={() => setSpritesLoaded(true)}
       />
 
       <Button

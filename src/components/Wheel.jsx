@@ -16,14 +16,14 @@ const Wheel = ({
   winner,
   isIntroFinished,
   setIsIntroFinished,
+  onSpritesLoaded,
 }) => {
   const [spritesLoaded, setSpritesLoaded] = useState(false);
   const sliceAngle = 360 / items.length;
   const innerRadius = 50;
 
-  // Memoize the onFinish callback to prevent infinite effect loops
+  // memoize the onFinish callback to prevent infinite effect loops
   const handleAnimationFinish = useCallback(() => {
-    // Defer state update to avoid updating parent during child render
     setTimeout(() => setIsIntroFinished(true), 0);
   }, [setIsIntroFinished]);
 
@@ -32,6 +32,13 @@ const Wheel = ({
       setIsIntroFinished(false);
     }
   }, [isSpinning, winner, setIsIntroFinished]);
+
+  // Notify parent when sprites are loaded
+  useEffect(() => {
+    if (spritesLoaded && onSpritesLoaded) {
+      onSpritesLoaded();
+    }
+  }, [spritesLoaded, onSpritesLoaded]);
 
   // Preload all sprite images properly
   useEffect(() => {
@@ -124,8 +131,7 @@ const Wheel = ({
       {/* Red Shape Overlay */}
       <div className="absolute inset-0 pointer-events-none z-200">
         {Array.from({ length: 11 }).map((_, index) => {
-          // add 1 to index so we skip the 0 position
-          const slotIndex = index + 1;
+          const slotIndex = index + 1; //  add 1 to index so we skip the 0 position
           const angle = (360 / 12) * slotIndex;
 
           const rad = ((angle - 90) * Math.PI) / 180;
@@ -202,7 +208,6 @@ const Wheel = ({
                 backgroundColor: index % 2 === 0 ? "#EFC37D" : "#DC9A65",
               }}
             >
-              {/* Positioning anchor — placed at the segment midpoint, rotated to face outward */}
               <div
                 style={{
                   position: "absolute",
@@ -213,7 +218,6 @@ const Wheel = ({
                   height: "15%",
                 }}
               >
-                {/* Image wrapper: top extends above anchor, sides/bottom clipped */}
                 <div
                   style={{
                     position: "absolute",
@@ -248,7 +252,7 @@ const Wheel = ({
       <button
         onClick={onSpin}
         disabled={!spritesLoaded || (!isSpinning && traineeCount !== 8)}
-        className="absolute z-30 bg-transparent border-none p-0 outline-none flex items-center justify-center"
+        className="absolute z-30 bg-transparent border-none p-0 outline-none flex items-center justify-center cursor-pointer"
         style={{
           width: "calc(min(72vmin, 580px) * 0.75)",
           height: "calc(min(72vmin, 580px) * 0.75)",
@@ -260,6 +264,7 @@ const Wheel = ({
           WebkitClipPath: "circle(20%)",
           WebkitTapHighlightColor: "transparent",
           willChange: "transform",
+          opacity: !spritesLoaded ? 0.5 : 1,
         }}
       >
         {isSpinning ? (
