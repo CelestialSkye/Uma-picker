@@ -6,6 +6,7 @@ import Button from "./Button";
 import WinnerModal from "./WinnerModal";
 import { useImagePreload } from "../hooks/useImagePreload";
 import { useAudioPreload } from "../hooks/useAudioPreload";
+import MuteButton from "./MuteButton";
 
 // Static arrays defined outside component to prevent re-creation on every render
 const SOUND_EFFECTS = [
@@ -25,6 +26,9 @@ const UmaWheelGame = () => {
   const [selectedTrainees, setSelectedTrainees] = useState(
     DataBase.trainees.map((t) => t.id),
   );
+  const [isMuted, setIsMuted] = useState(true);
+  //Bg music
+  const bgMusic = useRef(new Audio("/SoundEffects/bgMusic.wav"));
   // Preload all trainee images
   useImagePreload(TRAINEE_IMAGES);
 
@@ -39,6 +43,29 @@ const UmaWheelGame = () => {
   const rotationRef = useRef(0);
   const shouldResetIntroRef = useRef(false);
   const performStopRef = useRef(null);
+
+  //Mute function
+  useEffect(() => {
+    const music = bgMusic.current;
+    music.loop = true;
+    music.volume = 0.15;
+
+    return () => music.pause();
+  }, []);
+
+  useEffect(() => {
+    if (isMuted === false) {
+      bgMusic.current.play().catch(() => console.log("Music is playing"));
+    } else {
+      bgMusic.current.pause();
+    }
+    bgMusic.current.muted = isMuted;
+  }, [isMuted]);
+
+  const toggleMute = () => {
+    console.log("Button clicked! Previous state:", isMuted);
+    setIsMuted((prevMuted) => !prevMuted);
+  };
 
   //Stop spinning function
   const performStop = useCallback(() => {
@@ -179,6 +206,8 @@ const UmaWheelGame = () => {
           }}
         />
       )}
+
+      <MuteButton isMuted={isMuted} toggleMute={toggleMute} />
 
       {isWinnerOpen && (
         <WinnerModal

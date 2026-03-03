@@ -24,14 +24,18 @@ export const useAudioPreload = (audioSources) => {
         }
       };
 
-      // canplaythrough means the browser has buffered enough to play without interruption
       audio.addEventListener("canplaythrough", handleReady, { once: true });
-      audio.addEventListener("error", () => {
-        console.error(`Preload failed for audio: ${src}`);
-        handleReady();
-      }, { once: true });
+      audio.addEventListener(
+        "error",
+        () => {
+          console.error(`Preload failed for audio: ${src}`);
+          handleReady();
+        },
+        { once: true },
+      );
 
       audio.preload = "auto";
+      audio.volume = 0.5;
       audio.src = src;
       audio.load();
 
@@ -42,7 +46,7 @@ export const useAudioPreload = (audioSources) => {
     audiosRef.current = audios;
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Run once on mount — sources are static
+  }, []);
 
   return { isAudioLoaded, audiosRef };
 };
