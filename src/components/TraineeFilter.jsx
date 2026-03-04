@@ -36,7 +36,7 @@ const TraineeFilter = ({
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl p-6 w-full max-w-2xl max-h-[85vh] flex flex-col text-black shadow-2xl"
+        className="bg-white rounded-2xl p-6 w-full max-w-2xl h-[60vh] flex flex-col text-black shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* header */}
@@ -48,16 +48,16 @@ const TraineeFilter = ({
           <input
             type="text"
             placeholder="Search by name..."
-            className="w-full mt-3 p-3 border-2 border-gray-100 rounded-xl focus:border-pink-500 outline-none transition-all"
+            className="w-full mt-3 p-3 border-2 border-gray-100 rounded-xl focus:border-[#86D800] outline-none transition-all"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
 
-          {selected.length !== requiredTrainees && (
-            <p className="text-pink-600 text-sm font-semibold mt-2">
+          {/* {selected.length !== requiredTrainees && (
+            <p className="text-black text-sm font-semibold mt-2">
               Must select exactly {requiredTrainees} trainees
             </p>
-          )}
+          )} */}
         </div>
 
         {/* grid area  */}
@@ -68,7 +68,7 @@ const TraineeFilter = ({
               <label
                 key={trainee.id}
                 className={`relative flex flex-col items-center p-3 rounded-xl cursor-pointer border-2 transition-all
-                  ${isSelected ? "border-pink-500 bg-pink-50" : "border-gray-100 bg-white"}`}
+                  ${isSelected ? "border-[#86D800] bg-gray-50" : "border-gray-100 bg-white"}`}
               >
                 <input
                   type="checkbox"
@@ -76,7 +76,7 @@ const TraineeFilter = ({
                   checked={isSelected}
                   onChange={() => handleToggle(trainee.id)}
                 />
-                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-sm mb-2">
+                <div className="w-auto h-16  mb-2">
                   <img
                     src={trainee.image}
                     className="w-full h-full object-cover"
@@ -87,7 +87,7 @@ const TraineeFilter = ({
                   {trainee.name}
                 </span>
                 {isSelected && (
-                  <div className="absolute top-1 right-1 bg-pink-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                  <div className="absolute top-1 right-1 bg-[#86D800] text-white rounded-[12px] w-5 h-5 flex items-center justify-center text-xs">
                     ✓
                   </div>
                 )}
@@ -98,9 +98,9 @@ const TraineeFilter = ({
 
         <Button
           disabled={selected.length !== requiredTrainees}
-          className={`mt-6 w-full py-4 rounded-xl font-bold transition-all ${
+          className={`absolute mt-auto w-full py-4 rounded-xl font-bold transition-all ${
             selected.length === requiredTrainees
-              ? "bg-pink-600 text-white shadow-lg"
+              ? "bg-[#86D800] text-white shadow-lg"
               : "bg-gray-200 text-gray-400"
           }`}
           onClick={handleConfirm}

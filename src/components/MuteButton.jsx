@@ -10,7 +10,6 @@ const MuteButton = ({ isMuted, toggleMute }) => {
         />
         <span className="pr-3 font-bold text-white">Music</span>
 
-        {/* The Track (h-7 = 28px) */}
         <div
           className="peer relative h-7 w-16 rounded-full bg-slate-300 transition-all 
           peer-checked:bg-[linear-gradient(to_bottom,#539608_0%,#95DB09_100%)]

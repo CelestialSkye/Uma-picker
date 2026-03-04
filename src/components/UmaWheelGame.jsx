@@ -7,6 +7,7 @@ import WinnerModal from "./WinnerModal";
 import { useImagePreload } from "../hooks/useImagePreload";
 import { useAudioPreload } from "../hooks/useAudioPreload";
 import MuteButton from "./MuteButton";
+import LightEffect from "./LightEffect";
 
 // Static arrays defined outside component to prevent re-creation on every render
 const SOUND_EFFECTS = [
@@ -173,12 +174,11 @@ const UmaWheelGame = () => {
           <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin" />
         </div>
       )}
-
       {/* <h1 className="text-4xl font-bold text-pink-600">
         {winner ? winner.name : ""}
         {console.log(winner ? winner.name : "")}
       </h1> */}
-
+      <LightEffect />{" "}
       <Wheel
         items={DataBase.trainees.filter((t) => selectedTrainees.includes(t.id))}
         rotation={rotation}
@@ -190,14 +190,11 @@ const UmaWheelGame = () => {
         setIsIntroFinished={setIsIntroFinished}
         onSpritesLoaded={() => setSpritesLoaded(true)}
       />
-
       <Button
         onClick={() => setIsFilterOpen(true)}
         className="mt-8 px-6 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-lg w-48"
       ></Button>
-
       <MuteButton isMuted={isMuted} toggleMute={toggleMute} />
-
       {isFilterOpen && (
         <TraineeFilter
           allTrainees={DataBase.trainees}
@@ -208,7 +205,6 @@ const UmaWheelGame = () => {
           }}
         />
       )}
-
       {isWinnerOpen && (
         <WinnerModal
           winnerData={winner}
