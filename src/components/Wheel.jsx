@@ -188,8 +188,8 @@ const Wheel = ({
           margin: "auto",
           transform: `rotate(${rotation}deg)`,
           transition: isSpinning
-            ? "transform 0.05s linear"
-            : "transform 1.5s ease-out",
+            ? "transform 1.05s ease-out"
+            : "none",
         }}
       >
         {items.map((item, index) => {

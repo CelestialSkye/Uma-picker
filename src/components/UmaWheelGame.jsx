@@ -42,6 +42,7 @@ const UmaWheelGame = () => {
   const spinSpeed = 1; // degrees per ms
 
   const rotationRef = useRef(0);
+  const baseRotationRef = useRef(0);
   const shouldResetIntroRef = useRef(false);
   const performStopRef = useRef(null);
 
@@ -127,7 +128,7 @@ const UmaWheelGame = () => {
     if (isSpinning) {
       const interval = setInterval(() => {
         const elapsed = Date.now() - startTime;
-        const newRotation = elapsed * spinSpeed;
+        const newRotation = baseRotationRef.current + elapsed * spinSpeed;
         setRotation(newRotation);
         rotationRef.current = newRotation;
       }, 50);
@@ -160,6 +161,7 @@ const UmaWheelGame = () => {
         console.log("Audio play error:", e);
       }
 
+      baseRotationRef.current = rotationRef.current;
       setIsSpinning(true);
       setStartTime(now);
     } else {
