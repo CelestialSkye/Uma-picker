@@ -114,7 +114,7 @@ const Wheel = ({
         height: "min(72vmin, 580px)",
         willChange: "transform",
         backfaceVisibility: "hidden",
-        marginTop: "120px",
+        marginTop: "200px",
       }}
     >
       {!spritesLoaded && (
@@ -187,9 +187,7 @@ const Wheel = ({
           bottom: 0,
           margin: "auto",
           transform: `rotate(${rotation}deg)`,
-          transition: isSpinning
-            ? "transform 1.05s ease-out"
-            : "none",
+          transition: isSpinning ? "transform 2.05s linear" : "none",
         }}
       >
         {items.map((item, index) => {

@@ -39,7 +39,7 @@ const UmaWheelGame = () => {
   // Track if sprites are loaded
   const [spritesLoaded, setSpritesLoaded] = useState(false);
 
-  const spinSpeed = 1; // degrees per ms
+  const spinSpeed = 2; // degrees per ms
 
   const rotationRef = useRef(0);
   const baseRotationRef = useRef(0);
@@ -180,22 +180,32 @@ const UmaWheelGame = () => {
         {winner ? winner.name : ""}
         {console.log(winner ? winner.name : "")}
       </h1> */}
-      <LightEffect />{" "}
-      <Wheel
-        items={DataBase.trainees.filter((t) => selectedTrainees.includes(t.id))}
-        rotation={rotation}
-        isSpinning={isSpinning}
-        onSpin={handlePickRandom}
-        traineeCount={selectedTrainees.length}
-        winner={winner}
-        isIntroFinished={isIntroFinished}
-        setIsIntroFinished={setIsIntroFinished}
-        onSpritesLoaded={() => setSpritesLoaded(true)}
-      />
-      <Button
-        onClick={() => setIsFilterOpen(true)}
-        className="mt-8 px-6 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-lg w-48"
-      ></Button>
+      <div className="absolute inset-0 z-10 pointer-events-none">
+        <LightEffect />
+      </div>
+
+      <div className="relative z-20 flex">
+        <Wheel
+          items={DataBase.trainees.filter((t) =>
+            selectedTrainees.includes(t.id),
+          )}
+          rotation={rotation}
+          isSpinning={isSpinning}
+          onSpin={handlePickRandom}
+          traineeCount={selectedTrainees.length}
+          winner={winner}
+          isIntroFinished={isIntroFinished}
+          setIsIntroFinished={setIsIntroFinished}
+          onSpritesLoaded={() => setSpritesLoaded(true)}
+        />
+      </div>
+      <div className="relative z-20">
+        <Button
+          onClick={() => setIsFilterOpen(true)}
+          className="mt-2 px-6 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-lg w-48"
+        ></Button>
+      </div>
+
       <MuteButton isMuted={isMuted} toggleMute={toggleMute} />
       {isFilterOpen && (
         <TraineeFilter
