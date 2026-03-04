@@ -6,8 +6,8 @@ const Button = ({
   className = "",
   disabled = false,
 }) => {
-  const focalX = "68%";
-  const focalY = "45%";
+  const focalX = "70%";
+  const focalY = "50%";
 
   // Dynamic Colors
   const background = disabled
@@ -33,6 +33,7 @@ const Button = ({
           "'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif",
         background: background,
         boxShadow: boxShadow,
+        border: disabled ? "2px solid #6b7280" : "2px solid #3f6f00",
       }}
     >
       {/* Pattern 1 */}
@@ -48,16 +49,20 @@ const Button = ({
       <div
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
-          background: `radial-gradient(circle at ${focalX} ${focalY}, rgba(255, 255, 255, ${disabled ? 0.2 : 0.45}) 0%, transparent 70%)`,
+          background: disabled
+            ? "linear-gradient(to right, #9ca3af 0%, #d1d5db 100%)"
+            : "linear-gradient(to right, #4e8000 0%, #b4f000 100%)",
           clipPath: `polygon(55% 0, 82% 0, ${focalX} ${focalY})`,
         }}
       />
 
-      {/* Pattern 3 */}
+      {/* Pattern 3  */}
       <div
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
-          background: `linear-gradient(to left, rgba(255, 255, 255, ${disabled ? 0.1 : 0.2}), transparent)`,
+          background: disabled
+            ? "linear-gradient(to right, #6b7280 0%, #d1d5db 100%)"
+            : "linear-gradient(to right, #3f6f00 0%, #a3e635 100%)",
           clipPath: `polygon(82% 0, 100% 0, 100% 100%, 58% 100%, ${focalX} ${focalY})`,
         }}
       />
