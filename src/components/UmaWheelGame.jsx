@@ -196,6 +196,8 @@ const UmaWheelGame = () => {
         className="mt-8 px-6 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-lg w-48"
       ></Button>
 
+      <MuteButton isMuted={isMuted} toggleMute={toggleMute} />
+
       {isFilterOpen && (
         <TraineeFilter
           allTrainees={DataBase.trainees}
@@ -206,8 +208,6 @@ const UmaWheelGame = () => {
           }}
         />
       )}
-
-      <MuteButton isMuted={isMuted} toggleMute={toggleMute} />
 
       {isWinnerOpen && (
         <WinnerModal
