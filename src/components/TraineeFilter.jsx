@@ -30,6 +30,10 @@ const TraineeFilter = ({
     }
   };
 
+  const handleUnselectAll = () => {
+    setSelected("");
+  };
+
   return (
     <div
       className="fixed inset-0 bg-black/50 z-[5000] flex items-center justify-center p-4"
@@ -41,10 +45,19 @@ const TraineeFilter = ({
       >
         {/* header */}
         <div className="mb-4">
-          <h2 className="text-xl font-bold">
-            Select Trainees ({selected.length} / {requiredTrainees})
-          </h2>
+          <div className="flex gap-3">
+            <h2 className="text-xl font-bold">
+              Select Trainees ({selected.length} / {requiredTrainees})
+            </h2>
 
+            <Button
+              className="inline-flex h-8 font-bold mt-auto text-center items-center"
+              onClick={handleUnselectAll}
+              text="Unselect All"
+            >
+              test
+            </Button>
+          </div>
           <input
             type="text"
             placeholder="Search by name..."
@@ -96,17 +109,18 @@ const TraineeFilter = ({
           })}
         </div>
 
-        <Button
-          disabled={selected.length !== requiredTrainees}
-          className={`absolute mt-auto w-full py-4 rounded-xl font-bold transition-all ${
-            selected.length === requiredTrainees
-              ? "bg-[#86D800] text-white shadow-lg"
-              : "bg-gray-200 text-gray-400"
-          }`}
-          onClick={handleConfirm}
-          text="Confirm"
-        />
-
+        <div className="pt-4">
+          <Button
+            disabled={selected.length !== requiredTrainees}
+            className={`absolute mt-auto w-full py-4 h-12 rounded-xl font-bold transition-all ${
+              selected.length === requiredTrainees
+                ? "bg-[#86D800] text-white shadow-lg"
+                : "bg-gray-200 text-gray-400"
+            }`}
+            onClick={handleConfirm}
+            text="Confirm"
+          />
+        </div>
         {/* <button
           disabled={selected.length !== requiredTrainees}
           className={`mt-6 w-full py-4 rounded-xl font-bold transition-all ${

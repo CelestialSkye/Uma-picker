@@ -25,7 +25,7 @@ const UmaWheelGame = () => {
   const [isWinnerOpen, setIsWinnerOpen] = useState(false);
   const [isIntroFinished, setIsIntroFinished] = useState(false);
   const [selectedTrainees, setSelectedTrainees] = useState(
-    DataBase.trainees.map((t) => t.id),
+    DataBase.trainees.slice(0, 8).map((t) => t.id),
   );
   const [isMuted, setIsMuted] = useState(true);
   //Bg music
