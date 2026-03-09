@@ -12,11 +12,11 @@ const WinnerModal = ({ winnerData, onClose }) => {
       const x = Math.sin(seed) * 10000;
       return x - Math.floor(x);
     };
-    return Array.from({ length: 40 }).map((_, i) => ({
+    return Array.from({ length: 20 }).map((_, i) => ({
       id: `sparkle-${i}`,
       x: (seededRandom(i) - 0.5) * 1100,
       y: (seededRandom(i + 100) - 0.5) * 800,
-      twinkleDuration: 1 + seededRandom(i + 200) * 0.5,
+      twinkleDuration: 1 + seededRandom(i + 5000) * 2,
       popDelay: i * 0.006,
       size: 15 + seededRandom(i + 300) * 30,
     }));
