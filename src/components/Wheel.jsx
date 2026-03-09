@@ -6,6 +6,12 @@ import RedShape from "../assets/redShape.svg";
 import SpriteAnimation from "./SpriteAnimation";
 import { MAMBO_ANIMS } from "../data/SPRITE_CONFIG";
 import LoadingSpinner from "./LoadingSpinner";
+//tippy
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/material.css";
+//stars image
+import stars from "../assets/stars.png";
 
 const Wheel = ({
   items,
@@ -229,16 +235,42 @@ const Wheel = ({
                     overflow: "hidden",
                   }}
                 >
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    style={{
-                      width: "260%",
-                      flexShrink: 0,
-                      height: "auto",
-                      display: "block",
-                    }}
-                  />
+                  <Tippy
+                    content={
+                      <div className="text-center p-1">
+                        <div className="font-bold text-white">{item.name}</div>
+                        <div className="text-xs flex -space-x-1 items-center justify-center w-full">
+                          {Array.from({ length: item.stars || 3 }).map(
+                            (_, i) => (
+                              <img
+                                key={i}
+                                src={stars}
+                                alt="star"
+                                className="relative w-4 h-4 object-contain"
+                                style={{ zIndex: i }}
+                              />
+                            ),
+                          )}
+                        </div>
+                      </div>
+                    }
+                    placement="top"
+                    animation="shift-away"
+                    arrow={true}
+                    theme="material"
+                    disabled={isSpinning}
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      style={{
+                        width: "260%",
+                        flexShrink: 0,
+                        height: "auto",
+                        display: "block",
+                      }}
+                    />
+                  </Tippy>
                 </div>
               </div>
             </div>
