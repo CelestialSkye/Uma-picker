@@ -10,6 +10,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/material.css";
+import "tippy.js/animations/scale-subtle.css";
 //stars image
 import stars from "../assets/stars.png";
 
@@ -239,6 +240,7 @@ const Wheel = ({
                     content={
                       <div className="text-center p-1">
                         <div className="font-bold text-white">{item.name}</div>
+                        <div className="font-bold text-white">{item.title}</div>
                         <div className="text-xs flex -space-x-1 items-center justify-center w-full">
                           {Array.from({ length: item.stars || 3 }).map(
                             (_, i) => (
@@ -255,10 +257,10 @@ const Wheel = ({
                       </div>
                     }
                     placement="top"
-                    animation="shift-away"
+                    animation="scale-subtle"
                     arrow={true}
-                    theme="material"
                     disabled={isSpinning}
+                    theme="uma-gradient"
                   >
                     <img
                       src={item.image}

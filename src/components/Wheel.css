@@ -14,3 +14,21 @@
 .wheel-paused {
   animation-play-state: paused;
 }
+
+/* Gradient theme for tippy */
+.tippy-box[data-theme~="uma-gradient"] {
+  background: linear-gradient(to bottom, #ff7eb3, #ee528c);
+  border: 2px solid white;
+  position: relative;
+}
+
+/* Arrow outline  */
+.tippy-box[data-theme~="uma-gradient"] .tippy-arrow {
+  color: #ee528c;
+}
+
+.tippy-box[data-theme~="uma-gradient"] .tippy-arrow::before {
+  /* this creates an "outline" effect around the triangle */
+  filter: drop-shadow(2px 0px 0px white) drop-shadow(-2px 0px 0px white)
+    drop-shadow(0px 2px 0px white);
+}
