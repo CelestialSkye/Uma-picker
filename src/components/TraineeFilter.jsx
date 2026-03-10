@@ -46,12 +46,12 @@ const TraineeFilter = ({
         {/* header */}
         <div className="mb-4">
           <div className="flex gap-3">
-            <h2 className="text-xl font-bold">
+            <h2 className="text-sm md:text-xl font-bold">
               Select Trainees ({selected.length} / {requiredTrainees})
             </h2>
 
             <Button
-              className="inline-flex h-8 font-bold mt-auto text-center items-center"
+              className="inline-flex h-4 md:h-8 w-auto font-bold mt-auto text-center items-center"
               onClick={handleUnselectAll}
               text="Unselect All"
             >
@@ -74,7 +74,7 @@ const TraineeFilter = ({
         </div>
 
         {/* grid area  */}
-        <div className="overflow-y-auto grid grid-cols-2 sm:grid-cols-4 gap-4 py-2">
+        <div className="overflow-y-auto grid grid-cols-2 sm:grid-cols-4 gap-4 py-2 px-4">
           {filteredTrainees.map((trainee) => {
             const isSelected = selected.includes(trainee.id);
             return (
@@ -98,6 +98,9 @@ const TraineeFilter = ({
                 </div>
                 <span className="text-[10px] font-bold text-center uppercase">
                   {trainee.name}
+                </span>
+                <span className="text-[8px] font-bold text-center uppercase">
+                  {trainee.title}
                 </span>
                 {isSelected && (
                   <div className="absolute top-1 right-1 bg-[#86D800] text-white rounded-[12px] w-5 h-5 flex items-center justify-center text-xs">
