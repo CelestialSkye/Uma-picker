@@ -12,6 +12,17 @@
     "distance": { "Short": "F", "Mile": "C", "Medium": "A", "Long": "A" },
     "strategy": { "Runner": "G", "Leader": "A", "Betweener": "A", "Chaser": "C" }
   },
+    {
+    "id": 100102,
+    "name": "Special Week",
+    "title": "Hopp'n♪Happy Heart",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/4/43/Game_Playable_Icon_100102.png",
+    "baseStats": { "speed": 77, "stamina": 90, "power": 103, "guts": 98, "wisdom": 82 },
+    "aptitude": { "Turf": "A", "Dirt": "G" },
+    "distance": { "Short": "F", "Mile": "C", "Medium": "A", "Long": "A" },
+    "strategy": { "Runner": "G", "Leader": "A", "Betweener": "A", "Chaser": "C" }
+  },
   {
     "id": 100201,
     "name": "Silence Suzuka",
@@ -34,6 +45,19 @@
     "distance": { "Short": "F", "Mile": "E", "Medium": "A", "Long": "B" },
     "strategy": { "Runner": "D", "Leader": "A", "Betweener": "C", "Chaser": "E" }
   },
+
+  {
+    "id": 100302,
+    "name": "Tokai Teio",
+    "title": "Beyond the Horizon",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/8/83/Game_Playable_Icon_100302.png",
+    "baseStats": { "speed": 89, "stamina": 102, "power": 80, "guts": 86, "wisdom": 93 },
+    "aptitude": { "Turf": "A", "Dirt": "G" },
+    "distance": { "Short": "F", "Mile": "E", "Medium": "A", "Long": "B" },
+    "strategy": { "Runner": "D", "Leader": "A", "Betweener": "C", "Chaser": "E" }
+  },
+
   {
     "id": 100401,
     "name": "Maruzensky",
@@ -45,6 +69,19 @@
     "distance": { "Short": "B", "Mile": "A", "Medium": "B", "Long": "C" },
     "strategy": { "Runner": "A", "Leader": "E", "Betweener": "G", "Chaser": "G" }
   },
+
+  {
+    "id": 100402,
+    "name": "Maruzensky",
+    "title": "Hot☆Summer Night",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/c/c8/Game_Playable_Icon_100402.png",
+    "baseStats": { "speed": 100, "stamina": 69, "power": 93, "guts": 87, "wisdom": 10 },
+    "aptitude": { "Turf": "A", "Dirt": "D" },
+    "distance": { "Short": "B", "Mile": "A", "Medium": "B", "Long": "C" },
+    "strategy": { "Runner": "A", "Leader": "E", "Betweener": "G", "Chaser": "G" }
+  },
+
   {
     "id": 100501,
     "name": "Fuji Kiseki",
@@ -63,6 +100,17 @@
     "stars": 3,
     "image": "https://umamusu.wiki/w/images/e/ec/Game_Playable_Icon_100601.png",
     "baseStats": { "speed": 101, "stamina": 66, "power": 106, "guts": 84, "wisdom": 93 },
+    "aptitude": { "Turf": "A", "Dirt": "B" },
+    "distance": { "Short": "E", "Mile": "A", "Medium": "A", "Long": "B" },
+    "strategy": { "Runner": "F", "Leader": "A", "Betweener": "A", "Chaser": "D" }
+  },
+   {
+    "id": 100602,
+    "name": "Oguri Cap",
+    "title": "Ashen Miracle",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/7/7d/Game_Playable_Icon_100602.png",
+    "baseStats": { "speed": 94, "stamina": 91, "power": 111, "guts": 76, "wisdom": 78 },
     "aptitude": { "Turf": "A", "Dirt": "B" },
     "distance": { "Short": "E", "Mile": "A", "Medium": "A", "Long": "B" },
     "strategy": { "Runner": "F", "Leader": "A", "Betweener": "A", "Chaser": "D" }
@@ -123,6 +171,17 @@
     "strategy": { "Runner": "F", "Leader": "A", "Betweener": "A", "Chaser": "F" }
   },
   {
+    "id": 101102,
+    "name": "Grass Wonder",
+    "title":"Saintly Jade Cleric",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/b/b9/Game_Playable_Icon_101102.png",
+    "baseStats": { "speed": 91, "stamina": 83, "power": 97, "guts": 79, "wisdom": 100 },
+    "aptitude": { "Turf": "A", "Dirt": "G" },
+    "distance": { "Short": "G", "Mile": "A", "Medium": "B", "Long": "A" },
+    "strategy": { "Runner": "F", "Leader": "A", "Betweener": "A", "Chaser": "F" }
+  },
+  {
     "id": 101201,
     "name": "Hishi Amazon",
     "title":"Azure Amazon",
@@ -144,6 +203,17 @@
     "distance": { "Short": "G", "Mile": "F", "Medium": "A", "Long": "A" },
     "strategy": { "Runner": "B", "Leader": "A", "Betweener": "D", "Chaser": "G" }
   },
+   {
+    "id": 101302,
+    "name": "Mejiro McQueen",
+    "title":"End of the Skies",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/b/bc/Game_Playable_Icon_101302.png",
+    "baseStats": { "speed": 74, "stamina": 110, "power": 72, "guts": 108, "wisdom": 86 },
+    "aptitude": { "Turf": "A", "Dirt": "E" },
+    "distance": { "Short": "G", "Mile": "F", "Medium": "A", "Long": "A" },
+    "strategy": { "Runner": "B", "Leader": "A", "Betweener": "D", "Chaser": "F" }
+  },
   {
     "id": 101401,
     "name": "El Condor Pasa",
@@ -155,12 +225,34 @@
     "distance": { "Short": "F", "Mile": "A", "Medium": "A", "Long": "B" },
     "strategy": { "Runner": "E", "Leader": "A", "Betweener": "A", "Chaser": "C" }
   },
+   {
+    "id": 101402,
+    "name": "El Condor Pasa",
+    "title":"Kukulkan Warrior",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/7/70/Game_Playable_Icon_101402.png",
+    "baseStats": { "speed": 100, "stamina": 75, "power": 91, "guts": 97, "wisdom": 87 },
+    "aptitude": { "Turf": "A", "Dirt": "B" },
+    "distance": { "Short": "F", "Mile": "A", "Medium": "A", "Long": "B" },
+    "strategy": { "Runner": "E", "Leader": "A", "Betweener": "A", "Chaser": "C" }
+  },
   {
     "id": 101501,
     "name": "T.M. Opera O",
     "title":"O Sole Suo!",
     "stars": 3,
     "image": "https://umamusu.wiki/w/images/6/65/Game_Playable_Icon_101501.png",
+    "baseStats": { "speed": 75, "stamina": 108, "power": 75, "guts": 102, "wisdom": 90 },
+    "aptitude": { "Turf": "A", "Dirt": "E" },
+    "distance": { "Short": "G", "Mile": "E", "Medium": "A", "Long": "A" },
+    "strategy": { "Runner": "C", "Leader": "A", "Betweener": "A", "Chaser": "G" }
+  },
+  {
+    "id": 101502,
+    "name": "T.M. Opera O",
+    "title":"New Year, Same Radiance!",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/a/a7/Game_Playable_Icon_101502.png",
     "baseStats": { "speed": 75, "stamina": 108, "power": 75, "guts": 102, "wisdom": 90 },
     "aptitude": { "Turf": "A", "Dirt": "E" },
     "distance": { "Short": "G", "Mile": "E", "Medium": "A", "Long": "A" },
@@ -189,12 +281,34 @@
     "strategy": { "Runner": "B", "Leader": "A", "Betweener": "A", "Chaser": "C" }
   },
   {
+    "id": 101702,
+    "name": "Symboli Rudolf",
+    "title":"Archer by Moonlight",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/d/d0/Game_Playable_Icon_101702.png",
+    "baseStats": { "speed": 83, "stamina": 87, "power": 90, "guts": 90, "wisdom": 100 },
+    "aptitude": { "Turf": "A", "Dirt": "G" },
+    "distance": { "Short": "E", "Mile": "C", "Medium": "A", "Long": "A" },
+    "strategy": { "Runner": "B", "Leader": "A", "Betweener": "A", "Chaser": "C" }
+  },
+  {
     "id": 101801,
     "name": "Air Groove",
     "title":"Empress Road",
     "stars": 2,
     "image": "https://umamusu.wiki/w/images/1/19/Game_Playable_Icon_101801.png",
     "baseStats": { "speed": 86, "stamina": 81, "power": 81, "guts": 86, "wisdom": 91 },
+    "aptitude": { "Turf": "A", "Dirt": "G" },
+    "distance": { "Short": "C", "Mile": "B", "Medium": "A", "Long": "E" },
+    "strategy": { "Runner": "D", "Leader": "A", "Betweener": "A", "Chaser": "G" }
+  },
+   {
+    "id": 101802,
+    "name": "Air Groove",
+    "title":"Quercus Civilis",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/8/89/Game_Playable_Icon_101802.png",
+    "baseStats": { "speed": 94, "stamina": 82, "power": 91, "guts": 88, "wisdom": 95 },
     "aptitude": { "Turf": "A", "Dirt": "G" },
     "distance": { "Short": "C", "Mile": "B", "Medium": "A", "Long": "E" },
     "strategy": { "Runner": "D", "Leader": "A", "Betweener": "A", "Chaser": "G" }
@@ -255,12 +369,34 @@
     "strategy": { "Runner": "E", "Leader": "A", "Betweener": "B", "Chaser": "E" }
   },
   {
+    "id": 102302,
+    "name": "Biwa Hayahide",
+    "title":"Rouge Caroler",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/3/38/Game_Playable_Icon_102302.png",
+    "baseStats": { "speed": 83, "stamina": 99, "power": 76, "guts": 96, "wisdom": 96 },
+    "aptitude": { "Turf": "A", "Dirt": "F" },
+    "distance": { "Short": "F", "Mile": "C", "Medium": "A", "Long": "A" },
+    "strategy": { "Runner": "E", "Leader": "A", "Betweener": "B", "Chaser": "E" }
+  },
+  {
     "id": 102401,
     "name": "Mayano Top Gun",
     "title":"Scramble☆Zone",
     "stars": 2,
     "image": "https://umamusu.wiki/w/images/3/39/Game_Playable_Icon_102401.png",
     "baseStats": { "speed": 73, "stamina": 100, "power": 67, "guts": 95, "wisdom": 90 },
+    "aptitude": { "Turf": "A", "Dirt": "E" },
+    "distance": { "Short": "D", "Mile": "D", "Medium": "A", "Long": "A" },
+    "strategy": { "Runner": "A", "Leader": "A", "Betweener": "B", "Chaser": "B" }
+  },
+   {
+    "id": 102402,
+    "name": "Mayano Top Gun",
+    "title":"Sunlight Bouquet",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/9/96/Game_Playable_Icon_102402.png",
+    "baseStats": { "speed": 83, "stamina": 100, "power": 82, "guts": 90, "wisdom": 95 },
     "aptitude": { "Turf": "A", "Dirt": "E" },
     "distance": { "Short": "D", "Mile": "D", "Medium": "A", "Long": "A" },
     "strategy": { "Runner": "A", "Leader": "A", "Betweener": "B", "Chaser": "B" }
@@ -316,6 +452,17 @@
     "stars": 3,
     "image": "https://umamusu.wiki/w/images/6/64/Game_Playable_Icon_103001.png",
     "baseStats": { "speed": 71, "stamina": 117, "power": 70, "guts": 102, "wisdom": 90 },
+    "aptitude": { "Turf": "A", "Dirt": "G" },
+    "distance": { "Short": "E", "Mile": "C", "Medium": "A", "Long": "A" },
+    "strategy": { "Runner": "B", "Leader": "A", "Betweener": "C", "Chaser": "G" }
+  },
+   {
+    "id": 103002,
+    "name": "Rice Shower",
+    "title":"Vampire Makeover!",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/d/d9/Game_Playable_Icon_103002.png",
+    "baseStats": { "speed": 76, "stamina": 121, "power": 67, "guts": 97, "wisdom": 89 },
     "aptitude": { "Turf": "A", "Dirt": "G" },
     "distance": { "Short": "E", "Mile": "C", "Medium": "A", "Long": "A" },
     "strategy": { "Runner": "B", "Leader": "A", "Betweener": "C", "Chaser": "G" }
@@ -389,6 +536,17 @@
     "strategy": { "Runner": "F", "Leader": "A", "Betweener": "A", "Chaser": "F" }
   },
   {
+    "id": 104002,
+    "name": "Gold City",
+    "title":"Autumn Cosmos",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/c/cb/Game_Playable_Icon_104002.png",
+    "baseStats": { "speed": 86, "stamina": 98, "power": 86, "guts": 98, "wisdom": 82 },
+    "aptitude": { "Turf": "A", "Dirt": "D" },
+    "distance": { "Short": "F", "Mile": "A", "Medium": "B", "Long": "B" },
+    "strategy": { "Runner": "F", "Leader": "A", "Betweener": "A", "Chaser": "F" }
+  },
+  {
     "id": 104101,
     "name": "Sakura Bakushin O",
     "title":"Blossom in Learning",
@@ -400,6 +558,18 @@
     "strategy": { "Runner": "A", "Leader": "A", "Betweener": "F", "Chaser": "G" }
   },
 
+   {
+    "id": 106901,
+    "name": "Sakura Chiyono O",
+    "title":"Strength in Full Bloom",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/4/4a/Game_Playable_Icon_106901.png",
+    "baseStats": { "speed": 93, "stamina": 96, "power": 78, "guts": 93, "wisdom": 90 },
+    "aptitude": { "Turf": "A", "Dirt": "G" },
+    "distance": { "Short": "E", "Mile": "A", "Medium": "A", "Long": "E" },
+    "strategy": { "Runner": "B", "Leader": "A", "Betweener": "F", "Chaser": "G" }
+  },
+
   {
     "id": 104401,
     "name": "Super Creek",
@@ -407,6 +577,19 @@
     "stars": 2,
     "image": "https://umamusu.wiki/w/images/f/f1/Game_Playable_Icon_104201.png",
     "baseStats": { "speed": 65, "stamina": 100, "power": 71, "guts": 100, "wisdom": 89 },
+    "aptitude": { "Turf": "A", "Dirt": "G" },
+    "distance": { "Short": "G", "Mile": "G", "Medium": "A", "Long": "A" },
+    "strategy": { "Runner": "D", "Leader": "A", "Betweener": "B", "Chaser": "G" },
+    "comment" : "THIS HAS INCORRECT IMAGE"
+  },
+
+  {
+    "id": 104402,
+    "name": "Super Creek",
+    "title":"Chiffon-Wrapped Mummy",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/5/5e/Game_Playable_Icon_104502.png",
+    "baseStats": { "speed": 74, "stamina": 106, "power": 75, "guts": 98, "wisdom": 97 },
     "aptitude": { "Turf": "A", "Dirt": "G" },
     "distance": { "Short": "G", "Mile": "G", "Medium": "A", "Long": "A" },
     "strategy": { "Runner": "D", "Leader": "A", "Betweener": "B", "Chaser": "G" },
@@ -461,6 +644,17 @@
     "strategy": { "Runner": "G", "Leader": "G", "Betweener": "A", "Chaser": "B" }
   },
 
+  {
+    "id": 105202,
+    "name": "Haru Urara",
+    "title":"New Year ♪ New Urara!",
+    "stars":3,
+    "image": "https://umamusu.wiki/w/images/6/63/Game_Playable_Icon_105202.png",
+    "baseStats": { "speed": 94, "stamina": 54, "power": 106, "guts": 98, "wisdom": 98 },
+    "aptitude": { "Turf": "G", "Dirt": "A" },
+    "distance": { "Short": "A", "Mile": "A", "Medium": "G", "Long": "G" },
+    "strategy": { "Runner": "G", "Leader": "G", "Betweener": "A", "Chaser": "B" }
+  },
 
   {
     "id": 105601,
@@ -469,6 +663,17 @@
     "stars": 1,
     "image": "https://umamusu.wiki/w/images/1/1d/Game_Playable_Icon_105601.png",
     "baseStats": { "speed": 77, "stamina": 81, "power": 88, "guts": 81, "wisdom": 73 },
+    "aptitude": { "Turf": "A", "Dirt": "F" },
+    "distance": { "Short": "F", "Mile": "C", "Medium": "A", "Long": "A" },
+    "strategy": { "Runner": "G", "Leader": "B", "Betweener": "A", "Chaser": "C" }
+  },
+  {
+    "id": 105602,
+    "name": "Matikanefukukitaru",
+    "title":"Lucky Tidings",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/f/f8/Game_Playable_Icon_105602.png",
+    "baseStats": { "speed": 87, "stamina": 100, "power": 94, "guts": 94, "wisdom": 75 },
     "aptitude": { "Turf": "A", "Dirt": "F" },
     "distance": { "Short": "F", "Mile": "C", "Medium": "A", "Long": "A" },
     "strategy": { "Runner": "G", "Leader": "B", "Betweener": "A", "Chaser": "C" }
