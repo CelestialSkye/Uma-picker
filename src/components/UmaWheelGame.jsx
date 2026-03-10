@@ -24,9 +24,28 @@ const UmaWheelGame = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isWinnerOpen, setIsWinnerOpen] = useState(false);
   const [isIntroFinished, setIsIntroFinished] = useState(false);
-  const [selectedTrainees, setSelectedTrainees] = useState(
-    DataBase.trainees.slice(0, 8).map((t) => t.id),
-  );
+  const [selectedTrainees, setSelectedTrainees] = useState(() => {
+    const saved = localStorage.getItem("uma_selected_trainees");
+
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error(e, "Failed to parse the list");
+      }
+    }
+
+    return DataBase.trainees.slice(0, 8).map((t) => t.id);
+  });
+
+  //for Localstorage trainees
+  useEffect(() => {
+    localStorage.setItem(
+      "uma_selected_trainees",
+      JSON.stringify(selectedTrainees),
+    );
+  }, [selectedTrainees]);
+
   const [isMuted, setIsMuted] = useState(true);
   //Bg music
   const bgMusic = useRef(new Audio("/SoundEffects/bgMusic.wav"));
