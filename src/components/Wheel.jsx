@@ -153,11 +153,12 @@ const Wheel = ({
               alt=""
               className="absolute"
               style={{
-                width: "21%",
-                height: "21%",
+                width: "20%",
+                height: "20%",
                 top: `${y}%`,
                 left: `${x}%`,
                 transform: `translate(-50%, -50%) rotate(${angle}deg)`,
+                paddingBottom: `0.8%`,
               }}
             />
           );
@@ -352,12 +353,12 @@ const Wheel = ({
       <div
         className="absolute rounded-full z-[100] pointer-events-none bg-gradient-to-b from-[#abee02] to-[#61BB34]"
         style={{
-          top: "1.5%",
-          left: "1.5%",
-          right: "1.5%",
-          bottom: "1.5%",
+          top: "1%",
+          left: "1%",
+          right: "1%",
+          bottom: "1%",
 
-          padding: "3.2vmin",
+          padding: "3.3vmin",
 
           /* The Mask (This cuts the hole) */
           WebkitMask:
@@ -370,10 +371,10 @@ const Wheel = ({
       <div
         className="absolute rounded-full pointer-events-none z-101"
         style={{
-          top: "calc(1.5% + 3.2vmin)",
-          left: "calc(1.5% + 3.2vmin)",
-          right: "calc(1.5% + 3.2vmin)",
-          bottom: "calc(1.5% + 3.2vmin)",
+          top: "calc(1% + 3.2vmin)",
+          left: "calc(1% + 3.2vmin)",
+          right: "calc(1% + 3.2vmin)",
+          bottom: "calc(1% + 3.2vmin)",
           border: "5px solid #65BA19",
         }}
       />
