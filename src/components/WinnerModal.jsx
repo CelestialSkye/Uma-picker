@@ -25,12 +25,18 @@ const WinnerModal = ({ winnerData, onClose }) => {
   if (!winnerData) return null;
 
   const name = winnerData.name || "";
+  const title = winnerData.title || "";
   const splitIndex = name.length > 6 ? Math.ceil(name.length / 2) : 4;
   const firstHalf = name.slice(0, splitIndex);
   const secondHalf = name.slice(splitIndex);
 
+  const splitIndexTitle = title.length > 6 ? Math.ceil(title.length / 2) : 4;
+  const firstHalfTitle = title.slice(0, splitIndexTitle);
+  const secondHalfTitle = title.slice(splitIndexTitle);
+
   const commonTextStyle =
-    "text-5xl md:text-8xl font-[1000] italic leading-none text-transparent bg-clip-text pb-4 select-none inline-block";
+    "text-4xl md:text-8xl font-[1000] italic leading-none text-transparent bg-clip-text pb-4 select-none inline-block";
+
   const commonFilter = `
     drop-shadow(3px 3px 0px white) 
     drop-shadow(-3px -3px 0px white) 
@@ -92,7 +98,7 @@ const WinnerModal = ({ winnerData, onClose }) => {
               damping: 30,
               mass: 1.2,
             }}
-            className="flex items-end justify-center transform skew-x-[-10deg]"
+            className="flex items-center justify-center transform skew-x-[-10deg]"
           >
             <h1
               className={commonTextStyle}
@@ -115,6 +121,45 @@ const WinnerModal = ({ winnerData, onClose }) => {
               }}
             >
               {secondHalf}
+            </h1>
+          </motion.div>
+
+          {/* for title */}
+          <motion.div
+            initial={{ scale: 3, opacity: 0, filter: "blur(20px)" }}
+            animate={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 30,
+              mass: 1.2,
+            }}
+            className="flex flex-wrap items-end justify-center transform skew-x-[-10deg]"
+          >
+            <h1
+              className={commonTextStyle}
+              style={{
+                fontSize: "clamp(1.5rem, 7vw, 2rem)",
+                backgroundImage:
+                  "linear-gradient(to bottom, #fffb9e 0%, #ffcf4b 45%, #f5a623 55%, #f5a623 100%)",
+                WebkitTextStroke: "1.5px white",
+                filter: `${commonFilter} drop-shadow(8px 8px 0px #d48806)`,
+              }}
+            >
+              {firstHalfTitle}
+            </h1>
+            <h1
+              className={commonTextStyle}
+              style={{
+                marginLeft: "3px",
+                fontSize: "clamp(1.5rem, 7vw, 2rem)",
+                backgroundImage:
+                  "linear-gradient(to bottom, #ffc9e0 0%, #ff7eb3 45%, #ee528c 55%, #ee528c 100%)",
+                WebkitTextStroke: "1.5px white",
+                filter: `${commonFilter} drop-shadow(8px 8px 0px #c21051)`,
+              }}
+            >
+              {secondHalfTitle}
             </h1>
           </motion.div>
 
