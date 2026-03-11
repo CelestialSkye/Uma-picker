@@ -6,6 +6,8 @@ import Button from "./Button";
 import WinnerModal from "./WinnerModal";
 import { useImagePreload } from "../hooks/useImagePreload";
 import { useAudioPreload } from "../hooks/useAudioPreload";
+import { useSpritePreload } from "../hooks/useSpritePreload";
+import { MAMBO_ANIMS } from "../data/SPRITE_CONFIG";
 import MuteButton from "./MuteButton";
 import LightEffect from "./LightEffect";
 
@@ -49,14 +51,22 @@ const UmaWheelGame = () => {
   const [isMuted, setIsMuted] = useState(true);
   //Bg music
   const bgMusic = useRef(new Audio("/SoundEffects/bgMusic.wav"));
-  // Preload all trainee images
-  useImagePreload(TRAINEE_IMAGES);
 
-  // Preload all sound effects and get the Audio objects back for direct playback
-  const { audiosRef } = useAudioPreload(SOUND_EFFECTS);
+  // Preload all assets
+  const { spritesLoaded } = useSpritePreload(MAMBO_ANIMS);
+  const { isLoaded: imagesLoaded } = useImagePreload(TRAINEE_IMAGES);
+  const { isAudioLoaded, audiosRef } = useAudioPreload(SOUND_EFFECTS);
 
-  // Track if sprites are loaded
-  const [spritesLoaded, setSpritesLoaded] = useState(false);
+  const allAssetsLoaded = spritesLoaded && imagesLoaded && isAudioLoaded;
+
+  useEffect(() => {
+    console.log("Loading status:", {
+      spritesLoaded,
+      imagesLoaded,
+      isAudioLoaded,
+      allAssetsLoaded,
+    });
+  }, [spritesLoaded, imagesLoaded, isAudioLoaded, allAssetsLoaded]);
 
   const spinSpeed = 2; // degrees per ms
 
@@ -190,7 +200,7 @@ const UmaWheelGame = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-8 bg-black-900 relative">
-      {!spritesLoaded && (
+      {!allAssetsLoaded && (
         <div className="fixed inset-0 z-9999 flex items-center justify-center bg-black bg-opacity-75">
           <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin" />
         </div>
@@ -215,7 +225,7 @@ const UmaWheelGame = () => {
           winner={winner}
           isIntroFinished={isIntroFinished}
           setIsIntroFinished={setIsIntroFinished}
-          onSpritesLoaded={() => setSpritesLoaded(true)}
+          spritesLoaded={spritesLoaded}
         />
       </div>
       <div className="relative z-20">

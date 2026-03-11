@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export const useImagePreload = (imageSources) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(false);
+  const imagesRef = useRef([]);
 
   useEffect(() => {
-    // 1. Safety check for empty data
     if (
       !imageSources ||
       (Array.isArray(imageSources) && imageSources.length === 0)
@@ -16,13 +16,14 @@ export const useImagePreload = (imageSources) => {
 
     const sources = Array.isArray(imageSources) ? imageSources : [imageSources];
     let loadedCount = 0;
+    const loadedImages = [];
 
-    // 2. Load and decode images
     sources.forEach((src) => {
       const img = new Image();
       img.src = src;
+      loadedImages.push(img); // reference to prevent garbage collection
 
-      // .decode() ensures the image is uncompressed and uploaded to GPU
+      // .decode() ensures the image is uncompressed and uploaded to gpu
       img
         .decode()
         .then(() => {
@@ -40,6 +41,9 @@ export const useImagePreload = (imageSources) => {
           }
         });
     });
+
+    // store images in ref to keep them in memory
+    imagesRef.current = loadedImages;
   }, [imageSources]);
 
   return { isLoaded, error };

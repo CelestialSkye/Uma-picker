@@ -621,11 +621,11 @@
   },
 
   {
-    "id": 103901,
+    "id": 105001,
     "name": "Narita Taishin",
     "title":"Nevertheless",
     "stars": 3,
-    "image": "https://umamusu.wiki/w/images/8/81/Game_Playable_Icon_103901.png",
+    "image": "https://umamusu.wiki/w/images/e/eb/Game_Playable_Icon_105001.png",
     "baseStats": { "speed": 96, "stamina": 82, "power": 99, "guts": 79, "wisdom": 94 },
     "aptitude": { "Turf": "A", "Dirt": "G" },
     "distance": { "Short": "F", "Mile": "D", "Medium": "A", "Long": "A" },

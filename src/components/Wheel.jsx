@@ -1,11 +1,10 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import "./Wheel.css";
 import TapButton from "../assets/TapButton.png";
 import SkipButton from "../assets/SkipButton.png";
 import RedShape from "../assets/redShape.svg";
 import SpriteAnimation from "./SpriteAnimation";
 import { MAMBO_ANIMS } from "../data/SPRITE_CONFIG";
-import LoadingSpinner from "./LoadingSpinner";
 //tippy
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
@@ -23,9 +22,8 @@ const Wheel = ({
   winner,
   isIntroFinished,
   setIsIntroFinished,
-  onSpritesLoaded,
+  spritesLoaded,
 }) => {
-  const [spritesLoaded, setSpritesLoaded] = useState(false);
   const sliceAngle = 360 / items.length;
   const innerRadius = 50;
 
@@ -39,40 +37,6 @@ const Wheel = ({
       setIsIntroFinished(false);
     }
   }, [isSpinning, winner, setIsIntroFinished]);
-
-  // Notify parent when sprites are loaded
-  useEffect(() => {
-    if (spritesLoaded && onSpritesLoaded) {
-      onSpritesLoaded();
-    }
-  }, [spritesLoaded, onSpritesLoaded]);
-
-  // Preload all sprite images properly
-  useEffect(() => {
-    const sprites = Object.values(MAMBO_ANIMS);
-    let loadedCount = 0;
-
-    sprites.forEach((anim) => {
-      const img = new Image();
-      img.src = anim.file;
-
-      img
-        .decode()
-        .then(() => {
-          loadedCount++;
-          if (loadedCount === sprites.length) {
-            setSpritesLoaded(true);
-          }
-        })
-        .catch((err) => {
-          console.error("Sprite failed to decode:", anim.file, err);
-          loadedCount++;
-          if (loadedCount === sprites.length) {
-            setSpritesLoaded(true);
-          }
-        });
-    });
-  }, []);
 
   // Determine animation type based on game state
   const getAnimationType = () => {
@@ -124,17 +88,6 @@ const Wheel = ({
         marginTop: "200px",
       }}
     >
-      {!spritesLoaded && (
-        <div
-          className="absolute inset-0 z-999 flex items-center justify-center"
-          style={{
-            backgroundColor: "rgba(0, 0, 0, 0.7)",
-            borderRadius: "50%",
-          }}
-        >
-          <LoadingSpinner text="Loading sprites..." />
-        </div>
-      )}
       {/* Red Shape Overlay */}
       <div className="absolute inset-0 pointer-events-none z-200">
         {Array.from({ length: 11 }).map((_, index) => {
