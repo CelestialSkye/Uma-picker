@@ -27,6 +27,7 @@ const UmaWheelGame = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isWinnerOpen, setIsWinnerOpen] = useState(false);
   const [isIntroFinished, setIsIntroFinished] = useState(false);
+  const [forceShowContent, setForceShowContent] = useState(false);
   const [selectedTrainees, setSelectedTrainees] = useState(() => {
     const saved = localStorage.getItem("uma_selected_trainees");
 
@@ -59,6 +60,17 @@ const UmaWheelGame = () => {
   const { isAudioLoaded, audiosRef } = useAudioPreload(SOUND_EFFECTS);
 
   const allAssetsLoaded = spritesLoaded && imagesLoaded && isAudioLoaded;
+
+  // Fallback: Force show content after 10 seconds if assets are still loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!allAssetsLoaded) {
+        console.warn("Assets took too long to load, showing content anyway");
+        setForceShowContent(true);
+      }
+    }, 10000);
+    return () => clearTimeout(timer);
+  }, [allAssetsLoaded]);
 
   useEffect(() => {
     console.log("Loading status:", {
@@ -200,8 +212,8 @@ const UmaWheelGame = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-8 bg-black-900 relative">
-      {!allAssetsLoaded && (
+    <div className="flex flex-col items-center justify-center min-h-screen gap-8 relative">
+      {!allAssetsLoaded && !forceShowContent && (
         <div className="fixed inset-0 z-9999 flex items-center justify-center bg-black bg-opacity-75">
           <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin" />
         </div>
