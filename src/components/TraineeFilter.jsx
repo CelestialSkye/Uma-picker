@@ -40,7 +40,7 @@ const TraineeFilter = ({
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl p-6 w-full max-w-2xl h-[60vh] flex flex-col text-black shadow-2xl"
+        className="bg-white rounded-2xl p-4 md:p-6 w-full max-w-2xl h-[85vh] md:h-[70vh] flex flex-col text-black shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* header */}
@@ -74,13 +74,13 @@ const TraineeFilter = ({
         </div>
 
         {/* grid area  */}
-        <div className="overflow-y-auto grid grid-cols-2 sm:grid-cols-4 gap-4 py-2 px-4">
+        <div className="overflow-y-auto grid grid-cols-3 sm:grid-cols-4 gap-2 md:gap-4 py-2 px-1 md:px-4">
           {filteredTrainees.map((trainee) => {
             const isSelected = selected.includes(trainee.id);
             return (
               <label
                 key={trainee.id}
-                className={`relative flex flex-col items-center p-3 rounded-xl cursor-pointer border-2 transition-all
+                className={`relative flex flex-col items-center p-2 md:p-3 rounded-xl cursor-pointer border-2 transition-all
                   ${isSelected ? "border-[#86D800] bg-gray-50" : "border-gray-100 bg-white"}`}
               >
                 <input
@@ -89,7 +89,7 @@ const TraineeFilter = ({
                   checked={isSelected}
                   onChange={() => handleToggle(trainee.id)}
                 />
-                <div className="w-auto h-16  mb-2">
+                <div className="w-auto h-10 md:h-16 mb-1 md:mb-2">
                   <img
                     src={trainee.image}
                     className="w-full h-full object-cover"
