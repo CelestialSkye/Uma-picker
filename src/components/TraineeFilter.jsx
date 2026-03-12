@@ -40,7 +40,7 @@ const TraineeFilter = ({
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl p-4 md:p-6 w-full max-w-2xl h-[85vh] md:h-[70vh] flex flex-col text-black shadow-2xl"
+        className="bg-white rounded-2xl p-4 md:p-6 w-full max-w-2xl h-[85dvh] md:h-[70vh] flex flex-col text-black shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* header */}
@@ -89,17 +89,17 @@ const TraineeFilter = ({
                   checked={isSelected}
                   onChange={() => handleToggle(trainee.id)}
                 />
-                <div className="w-auto h-10 md:h-16 mb-1 md:mb-2">
+                <div className="w-full h-10 md:h-16 mb-1 md:mb-2">
                   <img
                     src={trainee.image}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     alt=""
                   />
                 </div>
-                <span className="text-[10px] font-bold text-center uppercase">
+                <span className="text-[10px] font-bold text-center uppercase w-full wrap-break-word leading-tight line-clamp-2">
                   {trainee.name}
                 </span>
-                <span className="text-[8px] font-bold text-center uppercase">
+                <span className="text-[8px] font-bold text-center uppercase w-full truncate">
                   {trainee.title}
                 </span>
                 {isSelected && (
