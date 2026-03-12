@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 const SpriteAnimation = ({
   image,
   cols,
+  rows,
   width = 200,
   height = 200,
   fps,
@@ -58,8 +59,8 @@ const SpriteAnimation = ({
   const displayPixelWidth = pixelValues.w;
   const displayPixelHeight = pixelValues.h;
   const config = useMemo(
-    () => ({ image, cols, width: baseWidth, height: baseHeight, fps, frames }),
-    [image, cols, baseWidth, baseHeight, fps, frames],
+    () => ({ image, cols, rows, width: baseWidth, height: baseHeight, fps, frames }),
+    [image, cols, rows, baseWidth, baseHeight, fps, frames],
   );
 
   useEffect(() => {
@@ -128,7 +129,7 @@ const SpriteAnimation = ({
         height: displayHeight,
         backgroundImage: `url(${config.image})`,
         backgroundRepeat: "no-repeat",
-        backgroundSize: `${Math.round(displayPixelWidth * config.cols)}px auto`,
+        backgroundSize: `${Math.round(displayPixelWidth * config.cols)}px ${Math.round(displayPixelHeight * config.rows)}px`,
         backgroundPosition: `-${Math.round(col * displayPixelWidth)}px -${Math.round(row * displayPixelHeight)}px`,
         imageRendering: "pixelated",
         contain: "layout paint",

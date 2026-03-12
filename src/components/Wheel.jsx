@@ -159,6 +159,7 @@ const Wheel = ({
           key={winner ? `winner-${winner.id}` : "not-winner"}
           image={currentAnim.file}
           cols={currentAnim.cols}
+          rows={currentAnim.rows}
           width="24vmin"
           height="24vmin"
           fps={currentAnim.fps}
