@@ -35,7 +35,7 @@ const WinnerModal = ({ winnerData, onClose }) => {
   const secondHalfTitle = title.slice(splitIndexTitle);
 
   const commonTextStyle =
-    "text-4xl md:text-8xl font-[1000] italic leading-none text-transparent bg-clip-text pb-4 select-none inline-block";
+    "md:text-8xl font-[1000] italic leading-none text-transparent bg-clip-text pb-4 select-none inline-block";
 
   const commonFilter = `
     drop-shadow(3px 3px 0px white) 
@@ -103,6 +103,7 @@ const WinnerModal = ({ winnerData, onClose }) => {
             <h1
               className={commonTextStyle}
               style={{
+                fontSize: "clamp(1.6rem, 8vw, 5rem)",
                 backgroundImage:
                   "linear-gradient(to bottom, #fffb9e 0%, #ffcf4b 45%, #f5a623 55%, #f5a623 100%)",
                 WebkitTextStroke: "1.5px white",
@@ -114,6 +115,7 @@ const WinnerModal = ({ winnerData, onClose }) => {
             <h1
               className={commonTextStyle}
               style={{
+                fontSize: "clamp(1.6rem, 8vw, 5rem)",
                 backgroundImage:
                   "linear-gradient(to bottom, #ffc9e0 0%, #ff7eb3 45%, #ee528c 55%, #ee528c 100%)",
                 WebkitTextStroke: "1.5px white",
