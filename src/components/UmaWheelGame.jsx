@@ -10,6 +10,7 @@ import { useSpritePreload } from "../hooks/useSpritePreload";
 import { MAMBO_ANIMS } from "../data/SPRITE_CONFIG";
 import MuteButton from "./MuteButton";
 import LightEffect from "./LightEffect";
+import Links from "./Links";
 
 // Static arrays defined outside component to prevent re-creation on every render
 const SOUND_EFFECTS = [
@@ -234,6 +235,8 @@ const UmaWheelGame = () => {
           className="mt-2 px-6 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded-lg w-48"
         ></Button>
       </div>
+
+      <Links />
 
       <MuteButton isMuted={isMuted} toggleMute={toggleMute} />
       {isFilterOpen && (

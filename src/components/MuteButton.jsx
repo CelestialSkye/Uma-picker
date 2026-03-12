@@ -30,7 +30,7 @@ after:shadow-md after:border after:border-gray-400/50
 /* The Half-Circle Shadow/Reflection Effect */
 after:bg-[linear-gradient(135deg,#ffffff_50%,#F0EFF0_50%)]
 
-          /* The Slide: Moves the circle to the right side */
+          /* The Slide */
           peer-checked:after:translate-x-10 peer-checked:after:-translate-y-1/2"
         ></div>
       </label>
