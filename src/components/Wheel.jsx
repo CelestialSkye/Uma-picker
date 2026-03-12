@@ -1,17 +1,49 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef } from "react";
+import { createRoot } from "react-dom/client";
+import tippy from "tippy.js";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/material.css";
+import "tippy.js/animations/scale-subtle.css";
 import "./Wheel.css";
 import TapButton from "../assets/TapButton.png";
 import SkipButton from "../assets/SkipButton.png";
 import RedShape from "../assets/redShape.svg";
 import SpriteAnimation from "./SpriteAnimation";
 import { MAMBO_ANIMS } from "../data/SPRITE_CONFIG";
-//tippy
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
-import "tippy.js/themes/material.css";
-import "tippy.js/animations/scale-subtle.css";
-//stars image
 import stars from "../assets/stars.png";
+
+// Tippy wrapper using vanilla tippy.js to avoid @tippyjs/react React 19 incompatibility
+const TippyTooltip = ({ content, children, disabled, placement = "top", animation = "scale-subtle", theme }) => {
+  const ref = useRef(null);
+  const instanceRef = useRef(null);
+  const rootRef = useRef(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const container = document.createElement("div");
+    rootRef.current = createRoot(container);
+    rootRef.current.render(content);
+    instanceRef.current = tippy(ref.current, {
+      content: container,
+      placement,
+      animation,
+      theme,
+      allowHTML: true,
+    });
+    return () => {
+      instanceRef.current?.destroy();
+      rootRef.current?.unmount();
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (disabled) instanceRef.current?.disable();
+    else instanceRef.current?.enable();
+  }, [disabled]);
+
+  return <img ref={ref} {...children.props} />;
+};
 
 const Wheel = ({
   items,
@@ -190,7 +222,7 @@ const Wheel = ({
                     overflow: "hidden",
                   }}
                 >
-                  <Tippy
+                  <TippyTooltip
                     content={
                       <div className="text-center p-1">
                         <div className="font-bold text-white">{item.name}</div>
@@ -212,7 +244,6 @@ const Wheel = ({
                     }
                     placement="top"
                     animation="scale-subtle"
-                    arrow={true}
                     disabled={isSpinning}
                     theme="uma-gradient"
                   >
@@ -226,7 +257,7 @@ const Wheel = ({
                         display: "block",
                       }}
                     />
-                  </Tippy>
+                  </TippyTooltip>
                 </div>
               </div>
             </div>
