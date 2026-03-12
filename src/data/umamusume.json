@@ -722,6 +722,18 @@
     "aptitude": { "Turf": "A", "Dirt": "G" },
     "distance": { "Short": "A", "Mile": "B", "Medium": "B", "Long": "C" },
     "strategy": { "Runner": "G", "Leader": "B", "Betweener": "A", "Chaser": "D" }
+  },
+
+   {
+    "id": 106201,
+    "name": "Matikanetannhauser",
+    "title":"Clippety-Tippety-Clop",
+    "stars": 2,
+    "image": "https://umamusu.wiki/w/images/6/64/Game_Playable_Icon_106201.png",
+    "baseStats": { "speed": 79, "stamina": 91, "power": 82, "guts": 88, "wisdom": 85 },
+    "aptitude": { "Turf": "A", "Dirt": "G" },
+    "distance": { "Short": "G", "Mile": "D", "Medium": "A", "Long": "A" },
+    "strategy": { "Runner": "F", "Leader": "A", "Betweener": "A", "Chaser": "B" }
   }
 ]
 }
