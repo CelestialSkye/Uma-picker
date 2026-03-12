@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
 export const useSpritePreload = (spriteConfig) => {
   const [spritesLoaded, setSpritesLoaded] = useState(false);
   const imagesRef = useRef([]);
@@ -16,24 +18,28 @@ export const useSpritePreload = (spriteConfig) => {
 
     sprites.forEach((anim) => {
       const img = new Image();
-      img.src = anim.file;
       loadedImages.push(img); // reference to prevent garbage collection
 
-      img
-        .decode()
-        .then(() => {
-          loadedCount++;
-          if (loadedCount === sprites.length) {
-            setSpritesLoaded(true);
-          }
-        })
-        .catch((err) => {
+      const handleDone = () => {
+        loadedCount++;
+        if (loadedCount === sprites.length) {
+          setSpritesLoaded(true);
+        }
+      };
+
+      if (isMobile) {
+        // On mobile, skip .decode() — forcing GPU decompression of large sprites
+        // (e.g. 17MB idle.png = ~108MB RAM) crashes iOS Safari
+        img.onload = handleDone;
+        img.onerror = handleDone;
+        img.src = anim.file;
+      } else {
+        img.src = anim.file;
+        img.decode().then(handleDone).catch((err) => {
           console.error("Sprite failed to decode:", anim.file, err);
-          loadedCount++;
-          if (loadedCount === sprites.length) {
-            setSpritesLoaded(true);
-          }
+          handleDone();
         });
+      }
     });
 
     // store images in ref to keep them in memory
