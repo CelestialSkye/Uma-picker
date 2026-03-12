@@ -735,5 +735,19 @@
     "distance": { "Short": "G", "Mile": "D", "Medium": "A", "Long": "A" },
     "strategy": { "Runner": "F", "Leader": "A", "Betweener": "A", "Chaser": "B" }
   }
+
+  ,
+
+   {
+    "id": 106801,
+    "name": "Kitasan Black",
+    "title":"Gilded Shrine to Glory",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/c/c5/Game_Playable_Icon_106801.png",
+    "baseStats": { "speed": 97, "stamina": 100, "power": 79, "guts": 86, "wisdom": 88 },
+    "aptitude": { "Turf": "A", "Dirt": "G" },
+    "distance": { "Short": "E", "Mile": "C", "Medium": "A", "Long": "A" },
+    "strategy": { "Runner": "A", "Leader": "B", "Betweener": "C", "Chaser": "G" }
+  }
 ]
 }
