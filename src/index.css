@@ -32,12 +32,17 @@ body {
   width: 100%;
   min-height: 100vh;
 
-  /* Fix: Add url() and background properties */
   background-image: url("https://umamusu.wiki/w/images/9/94/Bg_0164_00001.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed; /* Optional: keeps bg static while scrolling */
+  background-color: #242424;
+}
+
+@media (min-width: 768px) {
+  body {
+    background-attachment: fixed;
+  }
 }
 
 h1 {
