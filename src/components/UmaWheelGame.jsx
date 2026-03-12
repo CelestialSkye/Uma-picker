@@ -27,7 +27,6 @@ const UmaWheelGame = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isWinnerOpen, setIsWinnerOpen] = useState(false);
   const [isIntroFinished, setIsIntroFinished] = useState(false);
-  const [forceShowContent, setForceShowContent] = useState(false);
   const [selectedTrainees, setSelectedTrainees] = useState(() => {
     const saved = localStorage.getItem("uma_selected_trainees");
 
@@ -61,25 +60,6 @@ const UmaWheelGame = () => {
 
   const allAssetsLoaded = spritesLoaded && imagesLoaded && isAudioLoaded;
 
-  // Fallback: Force show content after 10 seconds if assets are still loading
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!allAssetsLoaded) {
-        console.warn("Assets took too long to load, showing content anyway");
-        setForceShowContent(true);
-      }
-    }, 10000);
-    return () => clearTimeout(timer);
-  }, [allAssetsLoaded]);
-
-  useEffect(() => {
-    console.log("Loading status:", {
-      spritesLoaded,
-      imagesLoaded,
-      isAudioLoaded,
-      allAssetsLoaded,
-    });
-  }, [spritesLoaded, imagesLoaded, isAudioLoaded, allAssetsLoaded]);
 
   const spinSpeed = 2; // degrees per ms
 
@@ -99,7 +79,7 @@ const UmaWheelGame = () => {
 
   useEffect(() => {
     if (isMuted === false) {
-      bgMusic.current.play().catch(() => console.log("Music is playing"));
+      bgMusic.current.play().catch(() => {});
     } else {
       bgMusic.current.pause();
     }
@@ -107,7 +87,6 @@ const UmaWheelGame = () => {
   }, [isMuted]);
 
   const toggleMute = () => {
-    console.log("Button clicked! Previous state:", isMuted);
     setIsMuted((prevMuted) => !prevMuted);
   };
 
@@ -121,7 +100,7 @@ const UmaWheelGame = () => {
       spinAudio?.pause();
       if (spinAudio) spinAudio.currentTime = 0;
     } catch (e) {
-      console.log("Error stopping spin sound:", e);
+      console.error("Error stopping spin sound:", e);
     }
 
     setIsSpinning(false);
@@ -133,7 +112,7 @@ const UmaWheelGame = () => {
         winnerAudio.play().catch(() => {});
       }
     } catch (e) {
-      console.log("Error playing winner sound:", e);
+      console.error("Error playing winner sound:", e);
     }
 
     const currentRotation = rotationRef.current;
@@ -200,7 +179,7 @@ const UmaWheelGame = () => {
           spinAudio.play().catch(() => {});
         }
       } catch (e) {
-        console.log("Audio play error:", e);
+        console.error("Audio play error:", e);
       }
 
       baseRotationRef.current = rotationRef.current;
@@ -213,16 +192,12 @@ const UmaWheelGame = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-8 relative">
-      {!allAssetsLoaded && !forceShowContent && (
+      {!allAssetsLoaded && (
         <div className="fixed inset-0 z-9999 flex items-center justify-center bg-black bg-opacity-75">
           <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin" />
         </div>
       )}
-      {/* <h1 className="text-4xl font-bold text-pink-600">
-        {winner ? winner.name : ""}
-        {console.log(winner ? winner.name : "")}
-      </h1> */}
-      <div className="absolute inset-0 z-10 pointer-events-none">
+<div className="absolute inset-0 z-10 pointer-events-none">
         <LightEffect />
       </div>
 
