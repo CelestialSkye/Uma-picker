@@ -121,7 +121,6 @@ const SpriteAnimation = ({
   // GRID MATH
   const col = frame % config.cols;
   const row = Math.floor(frame / config.cols);
-
   return (
     <div
       style={{
@@ -134,6 +133,7 @@ const SpriteAnimation = ({
         imageRendering: "pixelated",
         contain: "layout paint",
         willChange: "background-position",
+        transition: "none",
         backfaceVisibility: "hidden",
         WebkitFontSmoothing: "antialiased",
       }}
