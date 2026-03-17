@@ -97,26 +97,32 @@ const SpriteAnimation = ({
   useEffect(() => {
     if (!imageLoaded || !config.fps || !config.frames) return;
 
-    const msPerFrame = Math.floor(1000 / config.fps);
+    const msPerFrame = 1000 / config.fps;
+    let lastTime = null;
+    let rafId;
 
-    const ticker = setInterval(() => {
-      setFrame((prevFrame) => {
-        const nextFrame = prevFrame + 1;
-        if (nextFrame >= config.frames) {
-          if (loop) {
-            return 0;
-          } else {
+    const tick = (timestamp) => {
+      if (lastTime === null) lastTime = timestamp;
+      const elapsed = timestamp - lastTime;
+
+      if (elapsed >= msPerFrame) {
+        lastTime = timestamp - (elapsed % msPerFrame);
+        setFrame((prevFrame) => {
+          const nextFrame = prevFrame + 1;
+          if (nextFrame >= config.frames) {
+            if (loop) return 0;
             onFinish?.();
             return prevFrame;
           }
-        }
-        return nextFrame;
-      });
-    }, msPerFrame);
+          return nextFrame;
+        });
+      }
 
-    return () => {
-      clearInterval(ticker);
+      rafId = requestAnimationFrame(tick);
     };
+
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
   }, [imageLoaded, config.fps, config.frames, loop, onFinish]);
 
   // GRID MATH
