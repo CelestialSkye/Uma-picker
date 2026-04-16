@@ -9,7 +9,7 @@ import TapButton from "../assets/TapButton.png";
 import SkipButton from "../assets/SkipButton.png";
 import RedShape from "../assets/redShape.svg";
 import SpriteAnimation from "./SpriteAnimation";
-import { MAMBO_ANIMS } from "../data/SPRITE_CONFIG";
+import { MAMBO_ANIMS } from "../data/SPRITE_CONFIG.ts";
 import stars from "../assets/stars.png";
 
 // Tippy wrapper using vanilla tippy.js to avoid @tippyjs/react React 19 incompatibility

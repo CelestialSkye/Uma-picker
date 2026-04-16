@@ -7,7 +7,7 @@ import WinnerModal from "./WinnerModal";
 import { useImagePreload } from "../hooks/useImagePreload";
 import { useAudioPreload } from "../hooks/useAudioPreload";
 import { useSpritePreload } from "../hooks/useSpritePreload";
-import { MAMBO_ANIMS } from "../data/SPRITE_CONFIG";
+import { MAMBO_ANIMS } from "../data/SPRITE_CONFIG.ts";
 import MuteButton from "./MuteButton";
 import LightEffect from "./LightEffect";
 import Links from "./Links";

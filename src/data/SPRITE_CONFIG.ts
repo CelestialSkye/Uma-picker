@@ -4,6 +4,18 @@ import runSheet from "../assets/sprites/running.png";
 import winSheet from "../assets/sprites/winpose.png";
 import winSheetLoop from "../assets/sprites/winloop.png";
 
+
+export type SpriteAnimConfig = {
+  file:string;
+  frames:number;
+  cols:number;
+  rows:number;
+  width:number;
+  height:number;
+  fps:number;
+  loop:boolean;
+}
+
 export const MAMBO_ANIMS = {
   IDLE: {
     file: idleSheet,
@@ -45,4 +57,4 @@ export const MAMBO_ANIMS = {
     fps: 60,
     loop: true,
   },
-};
+} as const satisfies Record<string, SpriteAnimConfig>;

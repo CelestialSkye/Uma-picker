@@ -1,5 +1,17 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 
+type SpriteAnimationProps = {
+  image: string;
+  cols: number;
+  rows: number;
+  width?: number | string;
+  height?: number | string;
+  fps?: number;
+  frames?: number;
+  loop?: boolean;
+  onFinish?: () => void;
+};
+
 const SpriteAnimation = ({
   image,
   cols,
@@ -10,20 +22,23 @@ const SpriteAnimation = ({
   frames,
   onFinish,
   loop,
-}) => {
+}: SpriteAnimationProps) => {
   const [frame, setFrame] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const baseWidth = typeof width === "number" ? width : 200;
-  const baseHeight = typeof height === "number" ? height : 200;
-  const displayWidth = typeof width === "string" ? width : `${width}px`;
-  const displayHeight = typeof height === "string" ? height : `${height}px`;
+  const baseWidth: number = typeof width === "number" ? width : 200;
+  const baseHeight: number = typeof height === "number" ? height : 200;
+  const displayWidth: string = typeof width === "string" ? width : `${width}px`;
+  const displayHeight: string =
+    typeof height === "string" ? height : `${height}px`;
 
-  const getPixelValue = (value) => {
+  const getPixelValue = (value: string | number): number => {
     if (typeof value === "number") return value;
     if (typeof value === "string") {
       const num = parseFloat(value);
-      if (value.includes("vmin")) return (num / 100) * Math.min(window.innerWidth, window.innerHeight);
-      if (value.includes("vmax")) return (num / 100) * Math.max(window.innerWidth, window.innerHeight);
+      if (value.includes("vmin"))
+        return (num / 100) * Math.min(window.innerWidth, window.innerHeight);
+      if (value.includes("vmax"))
+        return (num / 100) * Math.max(window.innerWidth, window.innerHeight);
       if (value.includes("vw")) return (num / 100) * window.innerWidth;
       if (value.includes("vh")) return (num / 100) * window.innerHeight;
       return num;
@@ -32,15 +47,17 @@ const SpriteAnimation = ({
   };
 
   // Track pixel dimensions with RAF batching for smooth resize
-  const rafRef = useRef(null);
+  const rafRef = useRef<number | null>(null);
   const [pixelValues, setPixelValues] = useState(() => ({
     w: Math.round(getPixelValue(displayWidth)),
     h: Math.round(getPixelValue(displayHeight)),
   }));
 
   useEffect(() => {
-    const handleResize = () => {
-      cancelAnimationFrame(rafRef.current);
+    const handleResize = (): void => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
       rafRef.current = requestAnimationFrame(() => {
         setPixelValues({
           w: Math.round(getPixelValue(displayWidth)),
@@ -56,10 +73,18 @@ const SpriteAnimation = ({
     };
   }, [displayWidth, displayHeight]);
 
-  const displayPixelWidth = pixelValues.w;
-  const displayPixelHeight = pixelValues.h;
+  const displayPixelWidth: number = pixelValues.w;
+  const displayPixelHeight: number = pixelValues.h;
   const config = useMemo(
-    () => ({ image, cols, rows, width: baseWidth, height: baseHeight, fps, frames }),
+    () => ({
+      image,
+      cols,
+      rows,
+      width: baseWidth,
+      height: baseHeight,
+      fps,
+      frames,
+    }),
     [image, cols, rows, baseWidth, baseHeight, fps, frames],
   );
 
@@ -73,7 +98,7 @@ const SpriteAnimation = ({
       return;
     }
 
-    let isMounted = true;
+    let isMounted: boolean = true;
     const img = new Image();
 
     const handleLoad = () => {
@@ -98,10 +123,10 @@ const SpriteAnimation = ({
     if (!imageLoaded || !config.fps || !config.frames) return;
 
     const msPerFrame = 1000 / config.fps;
-    let lastTime = null;
-    let rafId;
+    let lastTime: number | null = null;
+    let rafId: number;
 
-    const tick = (timestamp) => {
+    const tick = (timestamp: number): void => {
       if (lastTime === null) lastTime = timestamp;
       const elapsed = timestamp - lastTime;
 
@@ -126,8 +151,8 @@ const SpriteAnimation = ({
   }, [imageLoaded, config.fps, config.frames, loop, onFinish]);
 
   // GRID MATH
-  const col = frame % config.cols;
-  const row = Math.floor(frame / config.cols);
+  const col: number = frame % config.cols;
+  const row: number = Math.floor(frame / config.cols);
   return (
     <div
       style={{
