@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useRef } from "react";
+import type { ReactElement, ReactNode } from "react";
 import { createRoot } from "react-dom/client";
-import tippy from "tippy.js";
+import tippy, { type Placement } from "tippy.js";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/material.css";
 import "tippy.js/animations/scale-subtle.css";
@@ -9,11 +10,29 @@ import TapButton from "../assets/TapButton.png";
 import SkipButton from "../assets/SkipButton.png";
 import RedShape from "../assets/redShape.svg";
 import SpriteAnimation from "./SpriteAnimation";
-import { MAMBO_ANIMS } from "../data/SPRITE_CONFIG.ts";
+import { MAMBO_ANIMS } from "../data/SPRITE_CONFIG";
 import stars from "../assets/stars.png";
+import { ComponentProps } from "react";
+import type { Dispatch, SetStateAction } from "react";
+
+type TippyTooltipProps = {
+  content: ReactNode;
+  children: ReactElement<ComponentProps<"img">>;
+  placement?: Placement;
+  animation?: string;
+  theme?: string;
+  disabled: boolean;
+};
 
 // Tippy wrapper using vanilla tippy.js to avoid @tippyjs/react React 19 incompatibility
-const TippyTooltip = ({ content, children, disabled, placement = "top", animation = "scale-subtle", theme }) => {
+const TippyTooltip = ({
+  content,
+  children,
+  disabled,
+  placement = "top",
+  animation = "scale-subtle",
+  theme,
+}: TippyTooltipProps) => {
   const ref = useRef(null);
   const instanceRef = useRef(null);
   const rootRef = useRef(null);
@@ -34,7 +53,7 @@ const TippyTooltip = ({ content, children, disabled, placement = "top", animatio
       instanceRef.current?.destroy();
       rootRef.current?.unmount();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -43,6 +62,26 @@ const TippyTooltip = ({ content, children, disabled, placement = "top", animatio
   }, [disabled]);
 
   return <img ref={ref} {...children.props} />;
+};
+
+type Trainee = {
+  id: number;
+  name: string;
+  title: string;
+  image: string;
+  stars?: number;
+};
+
+type WheelProps = {
+  items: Trainee[];
+  rotation: number;
+  onSpin: () => void;
+  isSpinning: boolean;
+  traineeCount: number;
+  winner: Trainee | null;
+  isIntroFinished: boolean;
+  setIsIntroFinished: Dispatch<SetStateAction<boolean>>;
+  spritesLoaded: boolean;
 };
 
 const Wheel = ({
@@ -55,12 +94,12 @@ const Wheel = ({
   isIntroFinished,
   setIsIntroFinished,
   spritesLoaded,
-}) => {
-  const sliceAngle = 360 / items.length;
-  const innerRadius = 50;
+}: WheelProps) => {
+  const sliceAngle: number = 360 / items.length;
+  const innerRadius: number = 50;
 
   // memoize the onFinish callback to prevent infinite effect loops
-  const handleAnimationFinish = useCallback(() => {
+  const handleAnimationFinish = useCallback((): void => {
     setTimeout(() => setIsIntroFinished(true), 0);
   }, [setIsIntroFinished]);
 
@@ -71,7 +110,7 @@ const Wheel = ({
   }, [isSpinning, winner, setIsIntroFinished]);
 
   // Determine animation type based on game state
-  const getAnimationType = () => {
+  const getAnimationType = (): string => {
     if (isSpinning) return "RUNNING";
     if (winner) {
       return isIntroFinished ? "WINNER_LOOP" : "WINNER";
@@ -82,7 +121,7 @@ const Wheel = ({
   const animationType = getAnimationType();
   const currentAnim = MAMBO_ANIMS[animationType] || MAMBO_ANIMS["IDLE"];
 
-  const getRingClipPath = (index) => {
+  const getRingClipPath = (index): string => {
     const startAngle = index * sliceAngle - 90;
     const steps = 20;
 
