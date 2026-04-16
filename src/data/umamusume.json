@@ -1,6 +1,5 @@
 {
 "trainees":[
-
   {
     "id": 100101,
     "name": "Special Week",
@@ -748,6 +747,75 @@
     "aptitude": { "Turf": "A", "Dirt": "G" },
     "distance": { "Short": "E", "Mile": "C", "Medium": "A", "Long": "A" },
     "strategy": { "Runner": "A", "Leader": "B", "Betweener": "C", "Chaser": "G" }
+  }
+
+  ,
+
+   {
+    "id": 106701,
+    "name": "Satono Diamond",
+    "title":"Natural Brilliance",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/6/62/Game_Playable_Icon_106701.png",
+    "baseStats": { "speed": 91, "stamina": 88, "power": 93, "guts": 83, "wisdom": 95 },
+    "aptitude": { "Turf": "A", "Dirt": "G" },
+    "distance": { "Short": "G", "Mile": "C", "Medium": "A", "Long": "A" },
+    "strategy": { "Runner": "G", "Leader": "B", "Betweener": "A", "Chaser": "D" }
+  }
+
+  ,
+
+   {
+    "id": 107401,
+    "name": "Mejiro Bright ",
+    "title":"Brunissage Line",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/9/99/Game_Playable_Icon_107401.png",
+    "baseStats": { "speed": 89, "stamina": 107, "power": 87, "guts": 75, "wisdom": 92 },
+    "aptitude": { "Turf": "A", "Dirt": "G" },
+    "distance": { "Short": "F", "Mile": "C", "Medium": "A", "Long": "A" },
+    "strategy": { "Runner": "G", "Leader": "D", "Betweener": "A", "Chaser": "A" }
+  }
+
+  ,
+
+   {
+    "id": 100502,
+    "name": "Fuji Kiseki",
+    "title":"Succès Étoilé",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/d/d9/Game_Playable_Icon_100502.png",
+    "baseStats": { "speed": 98, "stamina": 77, "power": 102, "guts": 78, "wisdom": 95 },
+    "aptitude": { "Turf": "A", "Dirt": "F" },
+    "distance": { "Short": "B", "Mile": "A", "Medium": "B", "Long": "E" },
+    "strategy": { "Runner": "C", "Leader": "A", "Betweener": "C", "Chaser": "G" }
+  }
+   ,
+
+   {
+    "id": 102002,
+    "name": "Seiun Sky",
+    "title":"Soirée des Chatons",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/f/fb/Game_Playable_Icon_102002.png",
+    "baseStats": { "speed": 101, "stamina": 89, "power": 84, "guts": 88, "wisdom": 88 },
+    "aptitude": { "Turf": "A", "Dirt": "G" },
+    "distance": { "Short": "G", "Mile": "C", "Medium": "A", "Long": "A" },
+    "strategy": { "Runner": "A", "Leader": "B", "Betweener": "D", "Chaser": "E" }
+  }
+
+  ,
+
+   {
+    "id": 105101,
+    "name": "Nishino Flower",
+    "title":"Layered Petals",
+    "stars": 3,
+    "image": "https://umamusu.wiki/w/images/1/18/Game_Playable_Icon_105101.png",
+    "baseStats": { "speed": 93, "stamina": 81, "power": 95, "wisdom": 95 },
+    "aptitude": { "Turf": "A", "Dirt": "F" },
+    "distance": { "Short": "A", "Mile": "A", "Medium": "E", "Long": "G" },
+    "strategy": { "Runner": "F", "Leader": "A", "Betweener": "A", "Chaser": "G" }
   }
 ]
 }
