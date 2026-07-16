@@ -7,6 +7,7 @@ const Links = () => {
         href="https://github.com/CelestialSkye/Uma-picker"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="View source on GitHub"
         className="text-inherit"
       >
         <FaGithub size={32} className="text-white" />
