@@ -58,10 +58,7 @@ const WinnerModal = ({ winnerData, onClose }) => {
         </div>
 
         {/* Modal Content */}
-        <div
-          className="relative flex flex-col items-center z-50 p-4 w-full"
-          onClick={(e) => e.stopPropagation()}
-        >
+        <div className="relative flex flex-col items-center z-50 p-4 w-full">
           {/* Top Label */}
           <motion.div
             initial={{ opacity: 0, y: -40 }}
